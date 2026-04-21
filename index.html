@@ -389,7 +389,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 </div>
 
 <script>
-const DB='accelia_db2',SESS='accelia_sess',ADMIN='accelia2025',DAY=86400000;
+const DB='accelia_db2',SESS='accelia_sess',ADMIN='admindemo',DAY=86400000;
 
 function db(){try{return JSON.parse(localStorage.getItem(DB))||{users:[],groups:[],meetings:[],windowDays:5};}catch(e){return {users:[],groups:[],meetings:[],windowDays:5};}}
 function save(d){localStorage.setItem(DB,JSON.stringify(d));}
