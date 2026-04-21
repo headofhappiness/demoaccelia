@@ -591,7 +591,7 @@ function loadAdmin(){
     var mem=d.users.filter(function(u){return u.groupId===g.id&&u.status==='member';}).length;
     var gst=d.users.filter(function(u){return u.groupId===g.id&&u.status==='guest';}).length;
     var ms=meetingStateForGroup(g.id);
-    var badge=ms.s==='open'?'<span class="mrb mrb-open">⚡ Öppen</span>':ms.s==='locked'?'<span class="mrb mrb-locked">🔒 '+ms.daysUntil+'d</span>':'<span class="mrb mrb-past">Ingen träff</span>';
+    var badge=ms.s==='open'?'<span class="mrb mrb-open">⚡ Matchning öppen</span>':ms.s==='locked'?'<span class="mrb mrb-locked">Matchning öppnar om '+ms.daysUntil+' dagar</span>':'<span class="mrb mrb-past">Ingen träff</span>';
     statsHtml+='<div class="stat-box" style="text-align:left;padding:12px 14px;"><div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:6px;">'+g.name+'</div><div style="display:flex;gap:12px;margin-bottom:6px;"><div><div class="stat-num" style="font-size:20px;">'+mem+'</div><div class="stat-lbl">Medl.</div></div><div><div class="stat-num" style="font-size:20px;">'+gst+'</div><div class="stat-lbl">Gäster</div></div></div>'+badge+'</div>';
   });
   statsHtml+='</div>';
@@ -670,7 +670,7 @@ function renderMeetingsByGroup(){
       var past=m.date<now-DAY;
       var open=!past&&m.date-now<=win;
       var soon=!past&&!open&&m.date-now<=win*2;
-      var badge=past?'<span class="mrb mrb-past">Passerat</span>':open?'<span class="mrb mrb-open">🟢 Matchning öppen</span>':soon?'<span class="mrb mrb-soon">Öppnar snart</span>':'<span class="mrb mrb-locked">🔒 Låst</span>';
+      var opensDate=new Date(m.date-win);var opensStr=opensDate.getDate()+'/'+(opensDate.getMonth()+1);var badge=past?'<span class="mrb mrb-past">Avslutad</span>':open?'<span class="mrb mrb-open">⚡ Matchning öppen nu</span>':soon?'<span class="mrb mrb-soon">Matchning öppnar '+opensStr+'</span>':'<span class="mrb mrb-locked">Matchning öppnar '+opensStr+'</span>';
       html+='<div class="meeting-row"><div class="meeting-row-dot'+(past?' past':'')+'"></div><div class="meeting-row-info"><div class="meeting-row-date">'+fmtDate(m.date)+' '+badge+'</div><div class="meeting-row-loc">'+(m.location||'–')+'</div></div><button onclick="removeMeeting(\''+m.id+'\')" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;padding:2px 6px;">✕</button></div>';
     });
     html+='</div></div>';
