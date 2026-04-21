@@ -209,7 +209,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
         <div style="text-align:left;"><div style="font-weight:500;">Jag är gäst</div><div style="font-size:12px;opacity:0.55;margin-top:1px;">Prova matchningen – 7 dagar</div></div>
       </button>
     </div>
-    <div class="land-meta"><a href="#" onclick="checkAdmin()">· · ·</a></div>
+    <div class="land-meta">
+      <button onclick="checkAdmin()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);border-radius:20px;padding:7px 18px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px;">
+        🔐 Admin-inloggning
+      </button>
+    </div>
   </div>
   <div class="demo-ribbon"><b>Accelia Demo</b> · Grafik och innehåll anpassas i pilotversion</div>
 </div>
@@ -563,7 +567,42 @@ function updateAndMatch(){
   u.todaySeeks=val.trim(); saveUser(u); fetchMatches(u);
 }
 
-/* ── AI MATCHING ── */
+/* ── SMART FALLBACK MATCHING ── */
+function scoreMatch(user, other){
+  var q=(user.todaySeeks||user.seeks||'').toLowerCase();
+  var userOffers=(user.offers||'').toLowerCase();
+  var score=0;
+  var otherOffers=(other.offers||'').toLowerCase();
+  var otherSeeks=(other.seeks||'').toLowerCase();
+  // Vad jag söker matchar vad andra erbjuder
+  q.split(/\s+/).forEach(function(w){if(w.length>3&&otherOffers.includes(w))score+=3;});
+  // Vad andra söker matchar vad jag erbjuder
+  otherSeeks.split(/\s+/).forEach(function(w){if(w.length>3&&userOffers.includes(w))score+=2;});
+  // Branschkors (olika branscher = bra för nätverket)
+  if(other.industry&&user.industry&&other.industry!==user.industry)score+=1;
+  return score;
+}
+
+function fallbackWhy(user, other){
+  var q=(user.todaySeeks||user.seeks||'').toLowerCase();
+  var of=(other.offers||'').toLowerCase();
+  var words=q.split(/\s+/).filter(function(w){return w.length>3&&of.includes(w);});
+  if(words.length) return other.name.split(' ')[0]+' erbjuder just det du söker inom '+words.slice(0,2).join(' och ')+'.';
+  return other.name.split(' ')[0]+' på '+other.company+' kan vara en intressant kontakt för dig.';
+}
+
+function localMatch(user){
+  var d=db();
+  var others=d.users.filter(function(u){return u.id!==user.id;});
+  var scored=others.map(function(o){return {user:o,score:scoreMatch(user,o)};});
+  scored.sort(function(a,b){return b.score-a.score;});
+  return scored.slice(0,3).map(function(s){
+    var o=s.user;
+    return {name:o.name,company:o.company,city:o.city||'',offers:o.offers,why:fallbackWhy(user,o)};
+  });
+}
+
+/* ── AI MATCHING med fallback ── */
 async function fetchMatches(user){
   var d=db();
   var others=d.users.filter(function(u){return u.id!==user.id;});
@@ -578,17 +617,36 @@ async function fetchMatches(user){
   try{
     var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,system:'Affärsmatchningsmotor. Svara BARA med JSON.',messages:[{role:'user',content:prompt}]})});
+    if(!r.ok) throw new Error('api-error');
     var data=await r.json();
+    if(!data.content||!data.content[0]) throw new Error('no-content');
     var parsed=JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
     var u=me();
     u.matches=parsed.matches.map(function(m){var p=others[m.id_index-1];return p?{name:p.name,company:p.company,city:p.city||'',offers:p.offers,why:m.why}:null;}).filter(Boolean);
     saveUser(u); hideLoader(); renderMatches(u);
     showToast('✓ '+u.matches.length+' matchningar hittade!');
-  }catch(e){hideLoader();showToast('Kunde inte hämta matchningar');}
+  }catch(e){
+    // Fallback: lokal matchning utan API
+    var u=me();
+    u.matches=localMatch(user);
+    saveUser(u); hideLoader(); renderMatches(u);
+    showToast('✓ '+u.matches.length+' matchningar (lokal logik)');
+  }
 }
 
 /* ── AI PITCH ── */
 var aiS={};
+
+function localImprove(text, type){
+  var t=text.trim();
+  t=t.replace(/^jag\s+/i,'');
+  t=t.charAt(0).toUpperCase()+t.slice(1);
+  if(!/[.!?]$/.test(t)) t+='.';
+  if(type==='offers'&&t.length<50) t='Vi erbjuder '+t.charAt(0).toLowerCase()+t.slice(1);
+  if(type==='seeks'&&!/söker|letar|behöver/i.test(t)) t='Vi söker '+t.charAt(0).toLowerCase()+t.slice(1);
+  return t;
+}
+
 async function improveWithAI(){
   var of=document.getElementById('p-offers').value.trim();
   var se=document.getElementById('p-seeks').value.trim();
@@ -598,12 +656,20 @@ async function improveWithAI(){
   try{
     var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,system:'Förbättra affärstexter. Svara BARA med JSON.',messages:[{role:'user',content:p}]})});
+    if(!r.ok) throw new Error('api');
     var data=await r.json();
+    if(!data.content||!data.content[0]) throw new Error('empty');
     var parsed=JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
     hideLoader();
     if(parsed.offers&&of){aiS.offers=parsed.offers;document.getElementById('ai-offers-txt').textContent=parsed.offers;document.getElementById('ai-offers-box').style.display='block';}
     if(parsed.seeks&&se){aiS.seeks=parsed.seeks;document.getElementById('ai-seeks-txt').textContent=parsed.seeks;document.getElementById('ai-seeks-box').style.display='block';}
-  }catch(e){hideLoader();showToast('Kunde inte använda AI nu');}
+  }catch(e){
+    hideLoader();
+    var improved=false;
+    if(of){var io=localImprove(of,'offers');aiS.offers=io;document.getElementById('ai-offers-txt').textContent=io;document.getElementById('ai-offers-box').style.display='block';improved=true;}
+    if(se){var is=localImprove(se,'seeks');aiS.seeks=is;document.getElementById('ai-seeks-txt').textContent=is;document.getElementById('ai-seeks-box').style.display='block';improved=true;}
+    if(improved) showToast('Förslag klart (lokal logik)');
+  }
 }
 function useAI(f){
   if(f==='offers'&&aiS.offers){document.getElementById('p-offers').value=aiS.offers;document.getElementById('ai-offers-box').style.display='none';}
@@ -722,9 +788,21 @@ async function runLottery(){
     document.getElementById('lottery-status').textContent='✓ '+parsed.pairs.length+' par skapades.';
     renderAdminUsers(); showToast('🎲 '+parsed.pairs.length+' matchningar!');
   }catch(e){
+    // Fallback: lokal lottning utan API
+    var d2=db();
+    var shuffled=d2.users.slice().sort(function(){return Math.random()-0.5;});
+    var pairs=[];
+    for(var i=0;i<shuffled.length-1;i+=2){
+      var a=shuffled[i]; var b=shuffled[i+1];
+      a.match={name:b.name,company:b.company,city:b.city||'',why:fallbackWhy(b,a)};
+      b.match={name:a.name,company:a.company,city:a.city||'',why:fallbackWhy(a,b)};
+      pairs.push({a,b});
+    }
+    d2.lastLottery=Date.now(); save(d2);
     btn.classList.remove('running');
-    btn.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Starta lottning nu';
-    showToast('Fel vid matchning');
+    btn.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Starta lottning igen';
+    document.getElementById('lottery-status').textContent='✓ '+pairs.length+' par skapades (lokal logik).';
+    renderAdminUsers(); showToast('🎲 '+pairs.length+' matchningar klara!');
   }
 }
 function cleanupGuests(){ var d=db(); var b=d.users.length; d.users=d.users.filter(function(u){return u.status!=='guest'||(Date.now()-u.createdAt)<7*DAY;}); var rem=b-d.users.length; save(d); loadAdmin(); document.getElementById('cleanup-status').textContent=rem+' gäster borttagna.'; showToast(rem+' gäster rensade'); }
