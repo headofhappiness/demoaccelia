@@ -190,6 +190,47 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .gdpr-row input{margin-top:3px;accent-color:var(--navy);width:16px;height:16px;flex-shrink:0;}
 .gdpr-row label{font-size:11.5px;color:var(--muted);line-height:1.55;}
 .empty-state{text-align:center;padding:24px 16px;color:var(--muted);font-size:13px;}
+.digest-output{width:100%;min-height:160px;padding:12px;border-radius:10px;border:1.5px solid var(--border);font-size:12px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--cream);resize:vertical;line-height:1.75;}
+.copy-btn{margin-top:8px;background:var(--gold);color:var(--navy);border:none;border-radius:20px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.copy-btn:hover{opacity:0.88;}
+.board-card{background:var(--white);border-radius:12px;border:1px solid var(--border);padding:13px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;}
+.board-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.board-name{font-size:13.5px;font-weight:600;color:var(--navy);margin-bottom:2px;}
+.board-co{font-size:11px;color:var(--muted);margin-bottom:5px;}
+.board-seek{font-size:13px;color:var(--text);line-height:1.55;}
+.feedback-box{background:linear-gradient(135deg,#EFF6FF,#E8F0FE);border:1.5px solid #BFDBFE;border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.feedback-q{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:10px;line-height:1.4;}
+.feedback-input{width:100%;padding:10px 13px;border-radius:10px;border:1.5px solid #BFDBFE;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:#fff;resize:none;min-height:72px;}
+.feedback-sent{font-size:13px;color:var(--green,#1E7D5C);padding:8px 0;}
+.help-btn{background:none;border:1.5px solid var(--navy);border-radius:20px;padding:5px 12px;font-size:11.5px;font-weight:600;color:var(--navy);cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all 0.15s;flex-shrink:0;}
+.help-btn:hover{background:var(--navy);color:#fff;}
+.help-btn.clicked{background:var(--gold);border-color:var(--gold);color:var(--navy);cursor:default;}
+.fomo-banner{background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;padding:10px 14px;margin-top:8px;font-size:13px;color:var(--navy);font-weight:500;line-height:1.5;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.stat-big{background:var(--white);border-radius:14px;border:1px solid var(--border);padding:16px;text-align:center;}
+.stat-big-num{font-family:'DM Serif Display',serif;font-size:38px;color:var(--navy);line-height:1;}
+.stat-big-lbl{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;}
+.feedback-gate{background:linear-gradient(135deg,#EFF6FF,#E8F0FE);border:1.5px solid #BFDBFE;border-radius:var(--r);padding:18px;margin-bottom:14px;}
+.feedback-gate-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--navy);margin-bottom:5px;}
+.feedback-gate-sub{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5;}
+.skip-link{font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline;margin-top:8px;display:inline-block;}
+.digest-area{width:100%;min-height:200px;padding:12px;border-radius:10px;border:1.5px solid var(--border);font-size:12.5px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--cream);resize:none;line-height:1.8;}
+.copy-btn{background:var(--gold);color:var(--navy);border:none;border-radius:20px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px;width:100%;}
+.avatar-upload{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;font-size:24px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;flex-shrink:0;border:3px solid var(--white);box-shadow:var(--shadow);}
+.avatar-upload img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.avatar-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.group-search-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:13px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;}
+.mini-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.mini-av img{width:100%;height:100%;object-fit:cover;}
+.feedback-card{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--r);padding:16px;margin-bottom:12px;color:#fff;}
+.feedback-stars{display:flex;gap:8px;margin:10px 0;}
+.star-btn{background:none;border:none;font-size:24px;cursor:pointer;opacity:0.4;transition:opacity 0.15s;}
+.star-btn.active{opacity:1;}
+.feedback-input{width:100%;padding:10px 13px;border:none;border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;background:rgba(255,255,255,0.12);color:#fff;outline:none;resize:none;min-height:60px;}
+.feedback-input::placeholder{color:rgba(255,255,255,0.4);}
+.feedback-submit{margin-top:8px;background:var(--gold);color:var(--navy);border:none;border-radius:20px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.feedback-row{background:var(--white);border-radius:10px;border:1px solid var(--border);padding:10px 12px;margin-bottom:6px;}
+.feedback-stars-small{color:var(--gold);font-size:12px;}
 </style>
 </head>
 <body>
@@ -254,8 +295,29 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
         <div id="ai-seeks-box" style="display:none" class="ai-helper"><div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;">✨ AI-förslag</div><div class="ai-suggestion" id="ai-seeks-txt"></div><button class="ai-use-btn" onclick="useAI('seeks')">Använd detta</button></div>
       </div>
       <div class="fld"><label>Fokus <span class="opt">valfritt</span></label><input id="p-focus" placeholder="T.ex. hållbarhet, digitalisering..."></div>
+      <div class="fld-row">
+        <div class="fld"><label>E-post <span class="opt">valfritt</span></label><input id="p-email" type="email" placeholder="anna@foretag.se"></div>
+        <div class="fld"><label>Telefon <span class="opt">valfritt</span></label><input id="p-phone" placeholder="070-000 00 00"></div>
+      </div>
+      <div class="fld-row">
+        <div class="fld"><label>E-post <span class="opt">valfritt</span></label><input id="p-email" type="email" placeholder="anna@foretag.se"></div>
+        <div class="fld"><label>Telefon <span class="opt">valfritt</span></label><input id="p-phone" placeholder="070-000 00 00"></div>
+      </div>
+      <div class="fld"><label>Profilbild <span class="opt">valfritt – syns för gruppen</span></label>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:6px;">
+          <div class="avatar-upload" id="prof-avatar-preview">
+            <span id="prof-avatar-ini">?</span>
+            <input type="file" accept="image/*" onchange="handleAvatarUpload(event)">
+          </div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Ladda upp ett foto så att
+medlemmar känner igen dig.<br><span style="color:var(--gold);">Klicka på cirkeln</span> för att välja bild.</div>
+        </div>
+      </div>
     </div>
     <button class="btn btn-ghost btn-sm" onclick="improveWithAI()" style="width:100%;margin-top:10px;">✨ Förbättra med AI</button>
+    <div id="tipsad-row" style="display:none;margin-bottom:10px;">
+      <div class="fld"><label>Tipsad av <span class="opt">valfritt – av vilken KAN-medlem fick du höra om nätverket?</span></label><input id="p-tipsad" placeholder="T.ex. Anna Karlsson"></div>
+    </div>
     <div class="gdpr-row" style="margin-top:14px;"><input type="checkbox" id="p-gdpr"><label for="p-gdpr">Jag godkänner att mina uppgifter används för matchning inom detta nätverk, i enlighet med GDPR.</label></div>
     <button class="btn btn-primary" onclick="saveProfile()">Spara &amp; gå till nätverket ⚡</button>
   </div>
@@ -273,12 +335,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
     <div id="meeting-widget"></div>
     <div id="matches-section" style="display:none;"><div class="section-title">Prata med dessa på träffen</div><div id="matches-container"></div></div>
     <div id="lottery-section" style="display:none;"><div class="section-title" style="margin-top:16px;">🎲 Min lottade match</div><div id="lottery-container"></div></div>
+    <div id="group-searches-section" style="display:none;margin-top:4px;">
+      <div class="section-title" style="margin-top:16px;">🔍 Vad söker gruppen inför träffen?</div>
+      <div id="group-searches-list"></div>
+    </div>
+    <div id="feedback-section" style="display:none;">
+      <div class="section-title" style="margin-top:16px;">💬 Fick du något värdefullt?</div>
+      <div class="feedback-card">
+        <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:4px;">Fick du en värdefull kontakt eller ett tips vid senaste träffen?</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.55);margin-bottom:6px;">Din feedback hjälper nätverket att utvecklas.</div>
+        <div class="feedback-stars" id="feedback-stars">
+          <button class="star-btn" onclick="setRating(1)">⭐</button>
+          <button class="star-btn" onclick="setRating(2)">⭐</button>
+          <button class="star-btn" onclick="setRating(3)">⭐</button>
+          <button class="star-btn" onclick="setRating(4)">⭐</button>
+          <button class="star-btn" onclick="setRating(5)">⭐</button>
+        </div>
+        <textarea class="feedback-input" id="feedback-text" placeholder="Berätta gärna kort – vem träffade du, vad hände?" rows="2"></textarea>
+        <button class="feedback-submit" onclick="submitFeedback()">Skicka →</button>
+      </div>
+    </div>
     <div class="section-title" style="margin-top:16px;">Mitt erbjudande</div>
     <div class="card" id="offer-card"></div>
   </div>
   <div class="navbar">
     <button class="nav-item active" id="nav-dash" onclick="switchTab('dash')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nav-label">Hem</span></button>
     <button class="nav-item" id="nav-network" onclick="switchTab('network')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg><span class="nav-label">Nätverket</span></button>
+    <button class="nav-item" id="nav-board" onclick="switchTab('board')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nav-label">Söker</span></button>
+    <button class="nav-item" id="nav-board" onclick="switchTab('board')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nav-label">Söker</span></button>
     <button class="nav-item" id="nav-profile" onclick="switchTab('myprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nav-label">Profil</span></button>
   </div>
 </div>
@@ -293,6 +377,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   <div class="navbar">
     <button class="nav-item" onclick="switchTab('dash')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nav-label">Hem</span></button>
     <button class="nav-item active" onclick="switchTab('network')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg><span class="nav-label">Nätverket</span></button>
+    <button class="nav-item" onclick="switchTab('board')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nav-label">Söker</span></button>
     <button class="nav-item" onclick="switchTab('myprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nav-label">Profil</span></button>
   </div>
 </div>
@@ -313,6 +398,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   </div>
 </div>
 
+<!-- ANSLAGSTAVLA -->
+<div class="screen" id="s-board">
+  <div class="topbar"><div class="topbar-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z" fill="white"/></svg></div><div><div class="topbar-name">Vad söker vi?</div><div class="topbar-tag" id="board-count">–</div></div></div>
+  <div class="container has-nav" style="padding-top:16px;">
+    <div id="board-status-msg" style="margin-bottom:12px;"></div>
+    <div id="board-list"></div>
+    <!-- Feedback section -->
+    <div id="feedback-section" style="display:none;margin-top:16px;">
+      <div class="section-title">Efter senaste träffen</div>
+      <div class="feedback-box" id="feedback-form-box">
+        <div class="feedback-q">💬 Fick du någon värdefull kontakt eller ett bra tips via nätverket vid senaste träffen?</div>
+        <textarea class="feedback-input" id="feedback-input" placeholder="Berätta gärna – din berättelse inspirerar andra..."></textarea>
+        <button onclick="saveFeedback()" style="margin-top:8px;background:var(--navy);color:#fff;border:none;border-radius:20px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">Dela med gruppen →</button>
+      </div>
+      <div id="feedback-sent-msg" style="display:none;" class="feedback-sent">✓ Tack! Din berättelse har sparats och delas med admin.</div>
+    </div>
+  </div>
+  <div class="navbar">
+    <button class="nav-item" onclick="switchTab('dash')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nav-label">Hem</span></button>
+    <button class="nav-item" onclick="switchTab('network')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg><span class="nav-label">Nätverket</span></button>
+    <button class="nav-item active" onclick="switchTab('board')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nav-label">Söker</span></button>
+    <button class="nav-item" onclick="switchTab('myprofile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nav-label">Profil</span></button>
+  </div>
+</div>
+
 <!-- ADMIN -->
 <div class="screen" id="s-admin">
   <div class="topbar" style="background:var(--navy);border-color:transparent;">
@@ -326,6 +436,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
     <div class="admin-section">
       <div class="admin-section-title">Översikt – alla grupper</div>
       <div id="admin-stats-grid"></div>
+      <div class="stat-grid" style="margin-top:12px;" id="admin-global-stats"></div>
     </div>
 
     <!-- GRUPPER -->
@@ -380,7 +491,43 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
       <div id="admin-users"></div>
     </div>
 
+    <!-- DIGEST -->
+    <div class="admin-section">
+      <div class="admin-section-title">📋 Nätverksdigest – vem söker vad</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:10px;line-height:1.55;">Sammanställning av gruppens sökningar med kontaktuppgifter. Kopiera och klistra in i ert KAN-mail eller WhatsApp.</div>
+      <div class="fld" style="margin-bottom:8px;"><select id="digest-group-select" style="font-size:14px;padding:9px 12px;border-radius:10px;border:1.5px solid var(--border);width:100%;background:var(--cream);font-family:'DM Sans',sans-serif;outline:none;"><option value="">Välj grupp...</option></select></div>
+      <button onclick="generateDigest()" style="width:100%;background:var(--navy);color:white;border:none;border-radius:20px;padding:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;">📋 Generera sammanställning</button>
+      <textarea class="digest-area" id="digest-output" placeholder="Välj grupp och klicka 'Generera' – texten är redo att kopiera direkt in i ett mail." readonly></textarea>
+      <button class="copy-btn" onclick="copyDigest()">📋 Kopiera till urklipp</button>
+    </div>
+
+    <!-- FEEDBACK -->
+    <div class="admin-section">
+      <div class="admin-section-title">💬 Feedback från medlemmar</div>
+      <div id="admin-feedback-list"></div>
+    </div>
+
     <!-- GÄSTER -->
+    <div class="admin-section">
+      <div class="admin-section-title">📋 Nätverksdigest – vem söker vad</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:10px;line-height:1.55;">Sammanställning av vad medlemmarna sökte inför senaste träffen. Kopiera och skicka i ert KAN-mail eller WhatsApp.</div>
+      <div class="fld" style="margin-bottom:8px;">
+        <select id="digest-group-select" style="font-size:13px;padding:8px 12px;">
+          <option value="">Välj grupp...</option>
+        </select>
+      </div>
+      <button onclick="generateDigest()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;">Generera sammanställning</button>
+      <textarea class="digest-output" id="digest-output" readonly placeholder="Välj grupp och klicka Generera..."></textarea>
+      <button class="copy-btn" onclick="copyDigest()">📋 Kopiera text</button>
+      <div id="digest-copy-confirm" style="font-size:12px;color:var(--green,#1E7D5C);margin-top:6px;display:none;">✓ Kopierat!</div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">💬 Feedback från medlemmar</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:10px;">Berättelser om värdefulla kontakter från senaste träffen.</div>
+      <div id="admin-feedback-list"></div>
+    </div>
+
     <div class="admin-section">
       <div class="admin-section-title">⏳ Gästrensning</div>
       <button class="btn btn-ghost" onclick="cleanupGuests()" style="font-size:13px;margin-bottom:6px;">Ta bort gäster äldre än 7 dagar</button>
@@ -428,7 +575,7 @@ function fmtDate(ts){
 
 /* ROUTING */
 function showScreen(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
-function switchTab(t){if(t==='dash'){renderDash();showScreen('s-dash');}if(t==='network'){renderNetwork('');showScreen('s-network');}if(t==='myprofile'){renderMyProfile();showScreen('s-myprofile');}}
+function switchTab(t){if(t==='dash'){renderDash();showScreen('s-dash');}if(t==='network'){renderNetwork('');showScreen('s-network');}if(t==='board'){renderBoard();showScreen('s-board');}if(t==='myprofile'){renderMyProfile();showScreen('s-myprofile');}}
 
 function init(){
   seed();autoCleanGuests();
@@ -452,10 +599,10 @@ function seed(){
     {id:uid(),groupId:'g2',location:'FlexiWork Hovet',date:now+12*DAY},
   ];
   d.users=[
-    {id:uid(),name:'Erik Lindström',company:'EL Bygg AB',city:'Kungsbacka',industry:'Bygg & fastighet',groupId:'g1',offers:'Bygg- och renoveringsprojekt för privat- och företagskunder',seeks:'Fastighetsförvaltare och arkitektkontor att samarbeta med',status:'member',createdAt:now-3*DAY,todaySeeks:'',match:null,matches:null},
-    {id:uid(),name:'Anna Karlsson',company:'Digital Nord',city:'Kungsbacka',industry:'Teknik & IT',groupId:'g1',offers:'Webbutveckling och IT-support för SMF',seeks:'Kunder inom handel, bygg och hälsa',status:'member',createdAt:now-5*DAY,todaySeeks:'',match:null,matches:null},
-    {id:uid(),name:'Johan Petersson',company:'Stadsredovisning',city:'Kungsbacka',industry:'Finans & juridik',groupId:'g1',offers:'Redovisning, löner och skatterådgivning',seeks:'Nya företagskunder och jurister att samarbeta med',status:'member',createdAt:now-7*DAY,todaySeeks:'',match:null,matches:null},
-    {id:uid(),name:'Maria Berg',company:'Hälsocenter Vest',city:'Onsala',industry:'Hälsa & välmående',groupId:'g1',offers:'Företagshälsovård och stresshantering',seeks:'HR-ansvariga och medelstora bolag',status:'member',createdAt:now-2*DAY,todaySeeks:'',match:null,matches:null},
+    {id:uid(),name:'Erik Lindström',company:'EL Bygg AB',city:'Kungsbacka',industry:'Bygg & fastighet',groupId:'g1',offers:'Bygg- och renoveringsprojekt för privat- och företagskunder',seeks:'Fastighetsförvaltare och arkitektkontor att samarbeta med',email:'erik@elbygg.se',phone:'070-111 22 33',avatar:null,status:'member',createdAt:now-3*DAY,todaySeeks:'Arkitektkontor för kommande projekt',match:null,matches:null},
+    {id:uid(),name:'Anna Karlsson',company:'Digital Nord',city:'Kungsbacka',industry:'Teknik & IT',groupId:'g1',offers:'Webbutveckling och IT-support för SMF',seeks:'Kunder inom handel, bygg och hälsa',email:'anna@digitalnord.se',phone:'070-222 33 44',avatar:null,status:'member',createdAt:now-5*DAY,todaySeeks:'E-handelskund att bygga webshop åt',match:null,matches:null},
+    {id:uid(),name:'Johan Petersson',company:'Stadsredovisning',city:'Kungsbacka',industry:'Finans & juridik',groupId:'g1',offers:'Redovisning, löner och skatterådgivning',seeks:'Nya företagskunder och jurister att samarbeta med',email:'johan@stadsredovisning.se',phone:'070-333 44 55',status:'member',createdAt:now-7*DAY,todaySeeks:'Söker jurist för remisssamarbete',match:null,matches:null,feedback:''},
+    {id:uid(),name:'Maria Berg',company:'Hälsocenter Vest',city:'Onsala',industry:'Hälsa & välmående',groupId:'g1',offers:'Företagshälsovård och stresshantering',seeks:'HR-ansvariga och medelstora bolag',email:'maria@halsocenterwest.se',phone:'070-444 55 66',status:'member',createdAt:now-2*DAY,todaySeeks:'Söker HR-chef på mellanstort bolag',match:null,matches:null,feedback:''},
     {id:uid(),name:'Lars Svensson',company:'GBG Digital',city:'Göteborg',industry:'Teknik & IT',groupId:'g2',offers:'Appar, e-handel och digital strategi',seeks:'Säljpartners och kunder inom fintech',status:'member',createdAt:now-4*DAY,todaySeeks:'',match:null,matches:null},
     {id:uid(),name:'Sara Lindqvist',company:'Lindqvist Juridik',city:'Göteborg',industry:'Finans & juridik',groupId:'g2',offers:'Affärsjuridik och avtalsrätt',seeks:'Revisorer och redovisningskonsulter att remissa med',status:'member',createdAt:now-6*DAY,todaySeeks:'',match:null,matches:null},
     {id:uid(),name:'Per Nilsson',company:'KustMedia',city:'Göteborg',industry:'Kreativt & media',groupId:'g2',offers:'Foto, film och varumärkesstrategi',seeks:'Kunder inom fastighet och handel',status:'guest',createdAt:now-DAY,todaySeeks:'',match:null,matches:null},
@@ -472,11 +619,13 @@ function populateGroupSelect(selectId){
 function startFlow(status){
   window._status=status;window._editId=null;
   document.getElementById('prof-status-label').textContent=status==='guest'?'Gäst (7 dagar)':'Ny medlem';
-  ['p-name','p-company','p-city','p-offers','p-seeks','p-focus'].forEach(function(i){document.getElementById(i).value='';});
+  ['p-name','p-company','p-city','p-offers','p-seeks','p-focus','p-email','p-phone'].forEach(function(i){document.getElementById(i).value='';});
+  window._avatarData=null; document.getElementById('prof-avatar-ini').textContent='?'; var img=document.querySelector('#prof-avatar-preview img'); if(img)img.remove();
   document.getElementById('p-industry').value='';
   document.getElementById('p-gdpr').checked=false;
   populateGroupSelect('p-group');
   document.getElementById('p-group').value='';
+  document.getElementById('tipsad-row').style.display=status==='guest'?'block':'none';
   updateProgress();showScreen('s-profile');
 }
 function updateProgress(){
@@ -495,7 +644,7 @@ function saveProfile(){
   if(!document.getElementById('p-gdpr').checked){showToast('Godkänn GDPR för att fortsätta');return;}
   var id=window._editId||uid();
   var ex=window._editId?me():null;
-  var u={id:id,name:name,company:document.getElementById('p-company').value.trim(),city:document.getElementById('p-city').value.trim(),industry:document.getElementById('p-industry').value,groupId:gid,offers:offers,seeks:seeks,focus:document.getElementById('p-focus').value.trim(),status:window._status||'member',createdAt:ex?ex.createdAt:Date.now(),todaySeeks:ex?ex.todaySeeks:'',match:ex?ex.match:null,matches:ex?ex.matches:null};
+  var u={id:id,name:name,company:document.getElementById('p-company').value.trim(),city:document.getElementById('p-city').value.trim(),industry:document.getElementById('p-industry').value,groupId:gid,offers:offers,seeks:seeks,focus:document.getElementById('p-focus').value.trim(),email:document.getElementById('p-email').value.trim(),phone:document.getElementById('p-phone').value.trim(),avatar:window._avatarData||( ex?ex.avatar:null),status:window._status||'member',createdAt:ex?ex.createdAt:Date.now(),todaySeeks:ex?ex.todaySeeks:'',match:ex?ex.match:null,matches:ex?ex.matches:null,email:document.getElementById("p-email").value.trim(),phone:document.getElementById("p-phone").value.trim(),feedback:ex?ex.feedback:"",feedbackAt:ex?ex.feedbackAt:null,tipsadAv:document.getElementById('p-tipsad')?document.getElementById('p-tipsad').value.trim():(ex?ex.tipsadAv:'')};
   saveUser(u);saveSess(id);window._editId=null;
   renderDash();showScreen('s-dash');
   if(meetingStateForGroup(gid).s==='open')setTimeout(function(){fetchMatches(u);},600);
@@ -510,9 +659,15 @@ function goEditProfile(){
   document.getElementById('p-offers').value=u.offers||'';
   document.getElementById('p-seeks').value=u.seeks||'';
   document.getElementById('p-focus').value=u.focus||'';
+  document.getElementById('p-email').value=u.email||'';
+  document.getElementById('p-phone').value=u.phone||'';
   document.getElementById('p-gdpr').checked=true;
   populateGroupSelect('p-group');
   document.getElementById('p-group').value=u.groupId||'';
+  document.getElementById('p-email').value=u.email||''; document.getElementById('p-phone').value=u.phone||'';
+  window._avatarData=u.avatar||null;
+  var ini2=document.getElementById('prof-avatar-ini');
+  if(u.avatar){var ei=document.createElement('img');ei.src=u.avatar;ei.style.cssText='width:100%;height:100%;object-fit:cover;position:absolute;inset:0;';var ap=document.getElementById('prof-avatar-preview');var oi=ap.querySelector('img');if(oi)oi.remove();ap.insertBefore(ei,ap.firstChild);ini2.style.display='none';}else{ini2.style.display='';ini2.textContent=u.name[0]||'?';}
   document.getElementById('prof-status-label').textContent='Redigera profil';
   updateProgress();showScreen('s-profile');
 }
@@ -529,6 +684,8 @@ function renderDash(){
   gt.textContent='📍 '+gn;gt.style.display='inline';
   renderMeetingWidget(u);
   document.getElementById('offer-card').innerHTML='<div class="section-title">Vad jag erbjuder</div><div style="font-size:14px;line-height:1.6;margin-bottom:10px;">'+u.offers+'</div><div class="section-title">Söker generellt</div><div style="font-size:14px;line-height:1.6;margin-bottom:10px;">'+u.seeks+'</div><button class="btn btn-ghost btn-sm" onclick="goEditProfile()" style="margin-top:2px;">Redigera</button>';
+  renderGroupSearches(u);
+  showFeedbackSection();
   var ls=document.getElementById('lottery-section');
   if(u.match){ls.style.display='block';var m=u.match;document.getElementById('lottery-container').innerHTML='<div class="lottery-card"><div class="lottery-label">🎲 Din lottade match</div><div class="lottery-av">'+ini(m.name)+'</div><div class="lottery-name">'+m.name+'</div><div class="lottery-co">'+m.company+(m.city?' · '+m.city:'')+'</div><div class="lottery-why">'+m.why+'</div></div>';}else{ls.style.display='none';}
 }
@@ -540,7 +697,21 @@ function renderMeetingWidget(u){
   if(ms.s==='open'){
     msec.style.display='block';
     var dLabel=ms.daysUntil===0?'<strong style="color:var(--red);">Idag!</strong>':ms.daysUntil===1?'<strong>Imorgon</strong>':'Om <strong>'+ms.daysUntil+' dagar</strong>';
-    w.innerHTML='<div class="meeting-open"><div class="meeting-open-label">⚡ Matchning öppen – '+groupName(u.groupId)+'</div><div class="meeting-open-title">'+groupName(ms.m.groupId)+'</div><div class="meeting-open-date">'+fmtDate(ms.m.date)+(ms.m.location?' · '+ms.m.location:'')+' &nbsp;'+dLabel+'</div><div class="meeting-open-q">Vad vill du få ut av träffen?</div><textarea class="meeting-open-input" id="today-input" rows="2" placeholder="T.ex. söker ny leverantör, vill träffa någon inom IT...">'+(u.todaySeeks||'')+'</textarea><button class="meeting-open-btn" onclick="updateAndMatch()">Visa vem jag bör prata med →</button></div>';
+    // Check if there's a recent past meeting needing feedback
+  var d2=db();
+  var lastMeeting=d2.meetings.filter(function(m){return m.groupId===u.groupId&&m.date<Date.now()&&m.date>Date.now()-14*DAY;}).sort(function(a,b){return b.date-a.date;})[0];
+  var showFeedbackGate=lastMeeting&&!u.feedback;
+  var feedbackGateHtml=showFeedbackGate?
+    '<div class="feedback-gate">'+
+      '<div class="feedback-gate-title">Hur gick senaste träffen? 💬</div>'+
+      '<div class="feedback-gate-sub">Fick du en värdefull kontakt eller ett bra tips? Dela med gruppen – det tar 30 sekunder.</div>'+
+      '<textarea class="feedback-input" id="feedback-quick" placeholder="T.ex. Fick kontakt med en ny kund tack vare nätverket..." rows="2"></textarea>'+
+      '<div style="display:flex;gap:10px;margin-top:8px;align-items:center;">'+
+        '<button onclick="saveFeedbackQuick()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">Dela →</button>'+
+        '<span class="skip-link" onclick="skipFeedback()">Hoppa över</span>'+
+      '</div>'+
+    '</div>':'';
+  w.innerHTML=feedbackGateHtml+'<div class="meeting-open"><div class="meeting-open-label">⚡ Matchning öppen – '+groupName(u.groupId)+'</div><div class="meeting-open-title">'+groupName(ms.m.groupId)+'</div><div class="meeting-open-date">'+fmtDate(ms.m.date)+(ms.m.location?' · '+ms.m.location:'')+' &nbsp;'+dLabel+'</div><div class="meeting-open-q">Vad vill du få ut av träffen?</div><textarea class="meeting-open-input" id="today-input" rows="2" placeholder="T.ex. söker ny leverantör, vill träffa någon inom IT...">'+(u.todaySeeks||'')+'</textarea><button class="meeting-open-btn" onclick="updateAndMatch()">Visa vem jag bör prata med →</button></div>';
     renderMatches(u);
   } else if(ms.s==='locked'){
     msec.style.display='none';
@@ -554,9 +725,24 @@ function renderMeetingWidget(u){
 function renderMatches(u){
   var c=document.getElementById('matches-container');
   if(!u.matches||!u.matches.length){c.innerHTML='<div class="empty-state">Fyll i vad du söker ovan och tryck "Uppdatera" för att se matchningar.</div>';return;}
-  c.innerHTML=u.matches.map(function(m,i){return '<div class="match-card'+(i===0?' gold':'')+'"><div class="match-num">Matchning #'+(i+1)+'</div><div class="match-top"><div class="match-av'+(i===0?' gold':'')+'">'+ini(m.name)+'</div><div><div class="match-name">'+m.name+'</div><div class="match-co">'+m.company+(m.city?' · '+m.city:'')+'</div></div></div><div class="match-offers">📦 '+m.offers+'</div><div class="match-why">'+m.why+'</div></div>';}).join('');
+  c.innerHTML=u.matches.map(function(m,i){var mavHtml=m.avatar?'<img src="'+m.avatar+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">':""; return '<div class="match-card'+(i===0?' gold':'')+'"><div class="match-num">Matchning #'+(i+1)+'</div><div class="match-top"><div class="match-av'+(i===0?' gold':'')+'">'+mavHtml+(m.avatar?'':ini(m.name))+'</div><div><div class="match-name">'+m.name+'</div><div class="match-co">'+m.company+(m.city?' · '+m.city:'')+'</div></div></div><div class="match-offers">📦 '+m.offers+'</div><div class="match-why">'+m.why+'</div></div>';}).join('');
 }
 
+function saveFeedbackQuick(){
+  var val=(document.getElementById('feedback-quick')||{}).value||'';
+  if(!val.trim()){showToast('Skriv något – eller hoppa över');return;}
+  var u=me(); if(!u) return;
+  u.feedback=val.trim(); u.feedbackAt=Date.now();
+  saveUser(u);
+  renderDash();
+  showToast('✓ Tack! Nu till matchningen 🎯');
+}
+function skipFeedback(){
+  var u=me(); if(!u) return;
+  u.feedback='_skip_'; u.feedbackAt=Date.now();
+  saveUser(u);
+  renderDash();
+}
 function updateAndMatch(){var val=(document.getElementById('today-input')||{}).value||'';var u=me();if(!u)return;u.todaySeeks=val.trim();saveUser(u);fetchMatches(u);}
 
 /* NETWORK – bara inom samma grupp */
@@ -575,12 +761,138 @@ function renderNetwork(filter){
   if(!users.length){list.innerHTML='<div class="empty-state">Inga andra i din grupp ännu.</div>';return;}
   list.innerHTML=users.map(function(x){
     var stag=x.status==='guest'?'<span class="tag tag-guest">Gäst</span>':'<span class="tag tag-member">Medlem</span>';
-    return '<div class="user-card"><div class="user-card-top"><div class="user-av">'+ini(x.name)+'</div><div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:var(--navy);">'+x.name+(x.company?' <span style="font-weight:400;color:var(--muted);">· '+x.company+'</span>':'')+'</div><div style="font-size:12px;color:var(--muted);">'+(x.city||'')+(x.industry?' · '+x.industry:'')+'</div></div>'+stag+'</div><div style="font-size:13px;margin-bottom:4px;">📦 '+x.offers+'</div><div style="font-size:12.5px;color:var(--muted);">🔍 <strong>Söker:</strong> '+x.seeks+'</div></div>';
+    var avHtml=x.avatar?'<img src="'+x.avatar+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">':""; return '<div class="user-card"><div class="user-card-top"><div class="user-av">'+avHtml+(x.avatar?'':ini(x.name))+'</div><div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:var(--navy);">'+x.name+(x.company?' <span style="font-weight:400;color:var(--muted);">· '+x.company+'</span>':'')+'</div><div style="font-size:12px;color:var(--muted);">'+(x.city||'')+(x.industry?' · '+x.industry:'')+'</div></div>'+stag+'</div><div style="font-size:13px;margin-bottom:4px;">📦 '+x.offers+'</div><div style="font-size:12.5px;color:var(--muted);">🔍 <strong>Söker:</strong> '+x.seeks+'</div></div>';
   }).join('');
 }
 
 function renderMyProfile(){var u=me();if(!u)return;var stag=u.status==='guest'?'<span class="tag tag-guest">🎟️ Gäst</span>':'<span class="tag tag-member">👤 Medlem</span>';document.getElementById('myprofile-card').innerHTML='<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;"><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;">'+u.name[0]+'</div><div><div style="font-size:17px;font-weight:600;color:var(--navy);">'+u.name+'</div><div style="font-size:12px;color:var(--muted);">'+(u.company||'')+(u.city?' · '+u.city:'')+'</div></div></div>'+stag+' <span class="tag" style="background:rgba(232,160,32,0.15);color:var(--gold);">📍 '+groupName(u.groupId)+'</span>'+(u.industry?' <span class="tag" style="background:var(--cream2);color:var(--muted);">'+u.industry+'</span>':'')+'<div style="margin-top:14px;"><div class="section-title">Erbjuder</div><div style="font-size:14px;line-height:1.6;">'+u.offers+'</div></div><div style="margin-top:10px;"><div class="section-title">Söker generellt</div><div style="font-size:14px;line-height:1.6;">'+u.seeks+'</div></div>'+(u.focus?'<div style="margin-top:10px;"><div class="section-title">Fokus</div><div style="font-size:14px;">'+u.focus+'</div></div>':'');}
 function logout(){clearSess();showScreen('s-land');}
+
+/* AVATAR */
+function handleAvatarUpload(e){
+  var file=e.target.files[0]; if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    window._avatarData=ev.target.result;
+    var preview=document.getElementById('prof-avatar-preview');
+    var existing=preview.querySelector('img'); if(existing)existing.remove();
+    var img=document.createElement('img');
+    img.src=ev.target.result;
+    img.style.cssText='width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:50%;';
+    preview.insertBefore(img,preview.firstChild);
+    document.getElementById('prof-avatar-ini').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+
+/* GROUP SEARCHES */
+function renderGroupSearches(u){
+  var d=db();
+  var others=d.users.filter(function(x){return x.id!==u.id&&x.groupId===u.groupId&&(x.todaySeeks||x.seeks);});
+  var sec=document.getElementById('group-searches-section');
+  var list=document.getElementById('group-searches-list');
+  if(!others.length){sec.style.display='none';return;}
+  sec.style.display='block';
+  list.innerHTML=others.map(function(x){
+    var av=x.avatar?'<img src="'+x.avatar+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">':'';
+    var seeks=x.todaySeeks||x.seeks;
+    return '<div class="group-search-card">'+
+      '<div class="mini-av">'+av+(x.avatar?'':ini(x.name))+'</div>'+
+      '<div style="flex:1;min-width:0;">'+
+        '<div style="font-size:13px;font-weight:600;color:var(--navy);">'+x.name+'</div>'+
+        '<div style="font-size:11.5px;color:var(--muted);margin-bottom:4px;">'+(x.company||'')+'</div>'+
+        '<div style="font-size:13px;color:var(--text);">🔍 '+seeks+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+/* FEEDBACK */
+var _rating=0;
+function setRating(n){
+  _rating=n;
+  document.querySelectorAll('.star-btn').forEach(function(b,i){b.classList.toggle('active',i<n);});
+}
+function submitFeedback(){
+  var text=document.getElementById('feedback-text').value.trim();
+  var u=me(); if(!u) return;
+  if(!_rating&&!text){showToast('Lägg till stjärnor eller en kommentar');return;}
+  var d=db();
+  if(!d.feedback) d.feedback=[];
+  d.feedback.push({uid:u.id,name:u.name,company:u.company||'',groupId:u.groupId,rating:_rating,text:text,createdAt:Date.now()});
+  save(d);
+  document.getElementById('feedback-section').innerHTML='<div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--r);padding:16px;margin-bottom:12px;text-align:center;"><div style="font-size:22px;margin-bottom:6px;">🙏</div><div style="color:#fff;font-size:14px;">Tack för din feedback!</div><div style="color:rgba(255,255,255,0.5);font-size:12px;margin-top:4px;">Den hjälper nätverket att utvecklas.</div></div>';
+  showToast('Feedback skickad!');
+}
+
+function showFeedbackSection(){
+  var d=db(); var u=me(); if(!u) return;
+  var sec=document.getElementById('feedback-section');
+  // Show if last meeting was within 3 days
+  var ms=meetingStateForGroup(u.groupId);
+  var now=Date.now();
+  var recentMeeting=d.meetings.filter(function(m){return m.groupId===u.groupId&&m.date<now&&m.date>now-3*DAY;});
+  // Also show if user has given feedback already
+  var hasFeedback=d.feedback&&d.feedback.some(function(f){return f.uid===u.id&&Date.now()-f.createdAt<7*DAY;});
+  if(recentMeeting.length&&!hasFeedback){sec.style.display='block';}else{sec.style.display='none';}
+}
+
+/* DIGEST */
+function generateDigest(){
+  var gid=document.getElementById('digest-group-select').value;
+  if(!gid){showToast('Välj grupp');return;}
+  var d=db();
+  var g=d.groups.find(function(x){return x.id===gid;});
+  var users=d.users.filter(function(u){return u.groupId===gid&&(u.todaySeeks||u.seeks);});
+  if(!users.length){document.getElementById('digest-output').value='Inga sökningar registrerade för denna grupp ännu.';return;}
+  var now=new Date();
+  var dateStr=now.getDate()+'/'+(now.getMonth()+1)+' '+now.getFullYear();
+  var lines=['📋 '+g.name+' – Nätverksdigest '+dateStr,''];
+  lines.push('Vad söker vi just nu?
+');
+  users.forEach(function(u){
+    lines.push('👤 '+u.name+(u.company?' ('+u.company+')':''));
+    lines.push('🔍 Söker: '+(u.todaySeeks||u.seeks));
+    if(u.email) lines.push('✉️  '+u.email);
+    if(u.phone) lines.push('📞 '+u.phone);
+    lines.push('');
+  });
+  lines.push('─────────────────────');
+  lines.push('Känner du någon som kan hjälpa? Hör av dig direkt!');
+  document.getElementById('digest-output').value=lines.join('
+');
+}
+function copyDigest(){
+  var ta=document.getElementById('digest-output');
+  if(!ta.value||ta.value.startsWith('Välj')){showToast('Generera en sammanställning först');return;}
+  navigator.clipboard.writeText(ta.value).then(function(){showToast('✓ Kopierat till urklipp!');}).catch(function(){ta.select();document.execCommand('copy');showToast('✓ Kopierat!');});
+}
+
+function populateDigestSelect(){
+  var d=db(); var sel=document.getElementById('digest-group-select');
+  sel.innerHTML='<option value="">Välj grupp...</option>';
+  d.groups.forEach(function(g){sel.innerHTML+='<option value="'+g.id+'">'+g.name+'</option>';});
+}
+
+function renderAdminFeedback(){
+  var d=db();
+  var list=document.getElementById('admin-feedback-list');
+  if(!d.feedback||!d.feedback.length){list.innerHTML='<div class="empty-state">Ingen feedback ännu.</div>';return;}
+  var sorted=d.feedback.slice().sort(function(a,b){return b.createdAt-a.createdAt;});
+  list.innerHTML=sorted.map(function(f){
+    var stars='⭐'.repeat(f.rating||0);
+    var age=Math.floor((Date.now()-f.createdAt)/DAY);
+    var gn=groupName(f.groupId);
+    return '<div class="feedback-row">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">'+
+        '<div style="font-size:13px;font-weight:600;color:var(--navy);">'+f.name+(f.company?' · '+f.company:'')+'</div>'+
+        '<div style="font-size:10px;color:var(--muted);">'+gn+' · dag '+age+'</div>'+
+      '</div>'+
+      (stars?'<div class="feedback-stars-small">'+stars+'</div>':'')+
+      (f.text?'<div style="font-size:12.5px;color:var(--text);margin-top:4px;line-height:1.5;">'+f.text+'</div>':'')+
+    '</div>';
+  }).join('');
+}
 
 /* ADMIN */
 function goToProfile(){
@@ -603,6 +915,17 @@ function loadAdmin(){
   statsHtml+='</div>';
   document.getElementById('admin-stats-grid').innerHTML=statsHtml;
   renderGroupsAdmin();
+  // Global stats
+  var allU=d.users; var totalMatches=allU.filter(function(u){return u.match;}).length;
+  var totalFeedback=allU.filter(function(u){return u.feedback&&u.feedback!=='_skip_';}).length;
+  var totalHelps=allU.reduce(function(s,u){return s+(u.helpCount||0);},0);
+  var totalGuests=allU.filter(function(u){return u.status==='guest';}).length;
+  var globalEl=document.getElementById('admin-global-stats');
+  if(globalEl) globalEl.innerHTML=
+    '<div class="stat-big"><div class="stat-big-num">'+totalMatches+'</div><div class="stat-big-lbl">Matchningar genomförda</div></div>'+
+    '<div class="stat-big"><div class="stat-big-num">'+totalFeedback+'</div><div class="stat-big-lbl">Värdestories från träffar</div></div>'+
+    '<div class="stat-big"><div class="stat-big-num">'+totalHelps+'</div><div class="stat-big-lbl">"Jag kan hjälpa"-klick</div></div>'+
+    '<div class="stat-big"><div class="stat-big-num">'+totalGuests+'</div><div class="stat-big-lbl">Gäster (rekryteringspotential)</div></div>';
   populateMeetingGroupSelect();
   renderMeetingsByGroup();
   populateLotteryGroupSelect();
@@ -610,6 +933,10 @@ function loadAdmin(){
   window._userFilter='all';
   renderUserFilterTabs();
   renderAdminUsers('all');
+  populateDigestGroupSelect();
+  renderAdminFeedback();
+  populateDigestSelect();
+  renderAdminFeedback();
 }
 
 function renderGroupsAdmin(){
@@ -638,6 +965,12 @@ function removeGroup(id){
 
 function populateMeetingGroupSelect(){
   var d=db();var sel=document.getElementById('m-group-id');
+  sel.innerHTML='<option value="">Välj grupp...</option>';
+  d.groups.forEach(function(g){sel.innerHTML+='<option value="'+g.id+'">'+g.name+'</option>';});
+}
+function populateDigestGroupSelect(){
+  var d=db(); var sel=document.getElementById('digest-group-select');
+  if(!sel) return;
   sel.innerHTML='<option value="">Välj grupp...</option>';
   d.groups.forEach(function(g){sel.innerHTML+='<option value="'+g.id+'">'+g.name+'</option>';});
 }
@@ -707,13 +1040,180 @@ function renderAdminUsers(gid){
     return '<div class="admin-user-row"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+u.name[0]+'</div><div class="admin-user-info"><div class="admin-user-name">'+u.name+' '+stag+gbadge+'</div><div class="admin-user-co">'+(u.company||'–')+' · dag '+age+'</div></div><div class="admin-actions">'+acts+'</div></div>';
   }).join('')||'<div class="empty-state">Inga användare.</div>';
 }
+function renderAdminFeedback(){
+  var d=db();
+  var all=d.users.filter(function(u){return u.feedback&&u.feedback!=='_skip_';});
+  var el=document.getElementById('admin-feedback-list');
+  if(!el) return;
+  if(!all.length){el.innerHTML='<div class="empty-state">Inga berättelser ännu.</div>';return;}
+  el.innerHTML=all.map(function(u){
+    return '<div style="background:var(--cream2);border-radius:10px;padding:12px 14px;margin-bottom:8px;border-left:3px solid var(--gold);">'+
+      '<div style="font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:4px;">'+u.name+' – '+(u.company||'')+' <span style="font-size:10px;color:var(--muted);font-weight:400;">'+groupName(u.groupId)+'</span></div>'+
+      '<div style="font-size:13px;color:var(--text);line-height:1.6;font-style:italic;">"'+u.feedback+'"</div>'+
+    '</div>';
+  }).join('');
+}
 function promote(id){var d=db();var u=d.users.find(function(x){return x.id===id;});if(u){u.status='member';save(d);loadAdmin();showToast('→ Konverterad till medlem');}}
 function removeUsr(id){if(!confirm('Ta bort?'))return;var d=db();d.users=d.users.filter(function(u){return u.id!==id;});save(d);loadAdmin();showToast('Borttagen');}
+
+/* ANSLAGSTAVLA */
+function renderBoard(){
+  var d=db(); var u=me(); var ms=u?meetingStateForGroup(u.groupId):{s:'none'};
+  var statusEl=document.getElementById('board-status-msg');
+  var listEl=document.getElementById('board-list');
+  var feedSec=document.getElementById('feedback-section');
+
+  if(ms.s==='open'||ms.s==='locked'){
+    // Show all seeks in group
+    var others=d.users.filter(function(x){return u&&x.groupId===u.groupId;});
+    var withSeeks=others.filter(function(x){return x.todaySeeks||x.seeks;});
+    document.getElementById('board-count').textContent=withSeeks.length+' söker inför träffen';
+
+    var mLabel=ms.s==='open'?'⚡ Matchning öppen – se vad alla söker!':'📅 Träff om '+ms.daysUntil+' dagar – börja tänka på vem du vill prata med';
+    statusEl.innerHTML='<div style="background:'+(ms.s==='open'?'linear-gradient(135deg,var(--gold),var(--gold2))':'var(--cream2)')+';border-radius:10px;padding:10px 14px;font-size:13px;font-weight:500;color:'+(ms.s==='open'?'var(--navy)':'var(--muted)')+';">'+mLabel+'</div>';
+
+    listEl.innerHTML=withSeeks.map(function(x){
+      var seek=x.todaySeeks||x.seeks;
+      var isMe=u&&x.id===u.id;
+      return '<div class="board-card"'+( isMe?' style="border-color:var(--gold);background:#FFF8E7;"':'')+'>'+
+        '<div class="board-av" style="'+(isMe?'background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);':'')+'">'+ini(x.name)+'</div>'+
+        '<div style="flex:1;min-width:0;">'+
+          '<div class="board-name">'+x.name+(isMe?' <span style="font-size:10px;color:var(--gold);font-weight:600;">Du</span>':'')+'</div>'+
+          '<div class="board-co">'+(x.company||'')+(x.city?' · '+x.city:'')+'</div>'+
+          '<div class="board-seek" style="margin-top:4px;">🔍 '+seek+'</div>'+
+          (!isMe?'<div style="margin-top:8px;display:flex;align-items:center;gap:8px;">'+
+            '<button class="help-btn'+(hasHelped(u&&u.id,x.id)?' clicked':'')+'" onclick="clickHelp(''+x.id+'')" '+(hasHelped(u&&u.id,x.id)?'disabled':'')+'>'+
+            (hasHelped(u&&u.id,x.id)?'✓ Vill hjälpa':'Jag kan hjälpa →')+'</button>'+
+            (x.helpCount&&x.helpCount>0&&isMe?'<span style="font-size:11.5px;color:var(--gold);font-weight:600;">'+x.helpCount+' vill hjälpa dig – kom till träffen! 🎯</span>':'')+
+          '</div>':'')+
+          (x.helpCount&&x.helpCount>0&&isMe?'<div class="fomo-banner">🎯 '+x.helpCount+' person'+(x.helpCount>1?'er':'')+ ' i gruppen vill hjälpa dig – kom till träffen och ta reda på vem!</div>':'')+
+        '</div></div>';
+    }).join('')||'<div class="empty-state">Inga sökningar inlagda ännu.</div>';
+
+    // Feedback section – show after meeting (within 7 days after)
+    var lastMeeting=d.meetings.filter(function(m){return m.groupId===u.groupId&&m.date<Date.now()&&m.date>Date.now()-7*DAY;}).sort(function(a,b){return b.date-a.date;})[0];
+    if(lastMeeting){
+      feedSec.style.display='block';
+      var alreadySent=u&&u.feedback;
+      if(alreadySent){
+        document.getElementById('feedback-form-box').style.display='none';
+        document.getElementById('feedback-sent-msg').style.display='block';
+        document.getElementById('feedback-sent-msg').textContent='✓ Du har redan delat din berättelse. Tack!';
+      }
+    } else { feedSec.style.display='none'; }
+  } else {
+    document.getElementById('board-count').textContent='Inga aktiva träffar';
+    statusEl.innerHTML='<div class="meeting-none">Anslagstavlan aktiveras inför varje träff. Kom tillbaka när det börjar närma sig!</div>';
+    listEl.innerHTML='';
+    feedSec.style.display='none';
+  }
+}
+
+function hasHelped(myId, targetId){
+  if(!myId||!targetId) return false;
+  var d=db();
+  var me=d.users.find(function(u){return u.id===myId;});
+  return me&&me.helpedIds&&me.helpedIds.indexOf(targetId)>=0;
+}
+
+function clickHelp(targetId){
+  var u=me(); if(!u) return;
+  var d=db();
+  // Mark that I've indicated help
+  if(!u.helpedIds) u.helpedIds=[];
+  if(u.helpedIds.indexOf(targetId)>=0) return;
+  u.helpedIds.push(targetId);
+  saveUser(u);
+  // Increment target's helpCount
+  var target=d.users.find(function(x){return x.id===targetId;});
+  if(target){
+    target.helpCount=(target.helpCount||0)+1;
+    saveUser(target);
+  }
+  renderBoard();
+  showToast('Signalen skickad! Ni hittar varandra på träffen 🎯');
+}
+
+function saveFeedback(){
+  var val=document.getElementById('feedback-input').value.trim();
+  if(!val){showToast('Skriv något först');return;}
+  var u=me(); if(!u) return;
+  u.feedback=val; u.feedbackAt=Date.now();
+  saveUser(u);
+  document.getElementById('feedback-form-box').style.display='none';
+  document.getElementById('feedback-sent-msg').style.display='block';
+  showToast('✓ Tack för din berättelse!');
+}
+
+/* DIGEST */
+function generateDigest(){
+  var gid=document.getElementById('digest-group-select').value;
+  if(!gid){showToast('Välj grupp');return;}
+  var d=db();
+  var grp=d.groups.find(function(g){return g.id===gid;});
+  var users=d.users.filter(function(u){return u.groupId===gid;});
+  var ms=meetingStateForGroup(gid);
+  var meetingStr=ms.m?fmtDate(ms.m.date):'senaste träffen';
+
+  var lines=[];
+  lines.push('🔍 VAD SÖKER '+( grp?grp.name.toUpperCase():'GRUPPEN')+' JUST NU?');
+  lines.push('Inför träffen '+meetingStr);
+  lines.push('');
+
+  var withSeeks=users.filter(function(u){return u.todaySeeks||u.seeks;});
+  withSeeks.forEach(function(u){
+    var seek=u.todaySeeks||u.seeks;
+    lines.push('👤 '+u.name+(u.company?' – '+u.company:''));
+    lines.push('🔍 Söker: '+seek);
+    if(u.email||u.phone){
+      var contact=[];
+      if(u.email) contact.push(u.email);
+      if(u.phone) contact.push(u.phone);
+      lines.push('📞 '+contact.join(' · '));
+    }
+    lines.push('');
+  });
+
+  lines.push('──────────────────────────────');
+  // Feedback
+  var feedbacks=users.filter(function(u){return u.feedback;});
+  if(feedbacks.length){
+    lines.push('');
+    lines.push('💬 VÄRDEFULLA KONTAKTER FRÅN SENASTE TRÄFFEN:');
+    lines.push('');
+    feedbacks.forEach(function(u){
+      lines.push(u.name+': "'+u.feedback+'"');
+      lines.push('');
+    });
+    lines.push('──────────────────────────────');
+  }
+
+  lines.push('');
+  lines.push('Känner du någon som kan hjälpa? Hör av dig direkt!');
+  lines.push('');
+  lines.push('Skapat med Accelia – Nätverksaccelerator för KAN');
+
+  document.getElementById('digest-output').value=lines.join('
+');
+  showToast('Sammanställning klar!');
+}
+
+function copyDigest(){
+  var ta=document.getElementById('digest-output');
+  if(!ta.value){showToast('Generera en sammanställning först');return;}
+  navigator.clipboard.writeText(ta.value).then(function(){
+    document.getElementById('digest-copy-confirm').style.display='block';
+    setTimeout(function(){document.getElementById('digest-copy-confirm').style.display='none';},2500);
+    showToast('✓ Kopierat!');
+  }).catch(function(){
+    ta.select(); document.execCommand('copy'); showToast('✓ Kopierat!');
+  });
+}
 
 /* AI MATCHING – inom gruppen */
 function scoreMatch(user,other){var q=(user.todaySeeks||user.seeks||'').toLowerCase();var uo=(user.offers||'').toLowerCase();var score=0;var oo=(other.offers||'').toLowerCase();var os=(other.seeks||'').toLowerCase();q.split(/\s+/).forEach(function(w){if(w.length>3&&oo.includes(w))score+=3;});os.split(/\s+/).forEach(function(w){if(w.length>3&&uo.includes(w))score+=2;});if(other.industry&&user.industry&&other.industry!==user.industry)score+=1;return score;}
 function fallbackWhy(user,other){var q=(user.todaySeeks||user.seeks||'').toLowerCase();var of=(other.offers||'').toLowerCase();var words=q.split(/\s+/).filter(function(w){return w.length>3&&of.includes(w);});if(words.length)return other.name.split(' ')[0]+' erbjuder just det du söker inom '+words.slice(0,2).join(' och ')+'.';return other.name.split(' ')[0]+' på '+other.company+' kan vara en intressant kontakt för dig.';}
-function localMatch(user){var d=db();var others=d.users.filter(function(u){return u.id!==user.id&&u.groupId===user.groupId;});var scored=others.map(function(o){return {user:o,score:scoreMatch(user,o)};});scored.sort(function(a,b){return b.score-a.score;});return scored.slice(0,3).map(function(s){var o=s.user;return {name:o.name,company:o.company,city:o.city||'',offers:o.offers,why:fallbackWhy(user,o)};});}
+function localMatch(user){var d=db();var others=d.users.filter(function(u){return u.id!==user.id&&u.groupId===user.groupId;});var scored=others.map(function(o){return {user:o,score:scoreMatch(user,o)};});scored.sort(function(a,b){return b.score-a.score;});return scored.slice(0,3).map(function(s){var o=s.user;return {name:o.name,company:o.company,city:o.city||'',offers:o.offers,why:fallbackWhy(user,o),avatar:o.avatar||null};});}
 
 async function fetchMatches(user){
   var d=db();var others=d.users.filter(function(u){return u.id!==user.id&&u.groupId===user.groupId;});
@@ -730,7 +1230,7 @@ async function fetchMatches(user){
     if(!r.ok)throw new Error('api');
     var data=await r.json();if(!data.content||!data.content[0])throw new Error('empty');
     var parsed=JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
-    var u=me();u.matches=parsed.matches.map(function(m){var p=others[m.id_index-1];return p?{name:p.name,company:p.company,city:p.city||'',offers:p.offers,why:m.why}:null;}).filter(Boolean);
+    var u=me();u.matches=parsed.matches.map(function(m){var p=others[m.id_index-1];return p?{name:p.name,company:p.company,city:p.city||'',offers:p.offers,why:m.why,avatar:p.avatar||null}:null;}).filter(Boolean);
     saveUser(u);hideLoader();renderMatches(u);showToast('✓ '+u.matches.length+' matchningar!');
   }catch(e){var u=me();u.matches=localMatch(user);  // Om inga matchningar – visa alla i gruppen som fallback
   if(!u.matches||!u.matches.length){
