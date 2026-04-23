@@ -316,7 +316,10 @@ medlemmar känner igen dig.<br><span style="color:var(--gold);">Klicka på cirke
     </div>
     <button class="btn btn-ghost btn-sm" onclick="improveWithAI()" style="width:100%;margin-top:10px;">✨ Förbättra med AI</button>
     <div id="tipsad-row" style="display:none;margin-bottom:10px;">
-      <div class="fld"><label>Tipsad av <span class="opt">valfritt – av vilken KAN-medlem fick du höra om nätverket?</span></label><input id="p-tipsad" placeholder="T.ex. Anna Karlsson"></div>
+      <div class="fld">
+        <label>Tipsad av <span class="opt">valfritt – vem i nätverket tipsade dig?</span></label>
+        <select id="p-tipsad"><option value="">Välj medlem...</option></select>
+      </div>
     </div>
     <div class="gdpr-row" style="margin-top:14px;"><input type="checkbox" id="p-gdpr"><label for="p-gdpr">Jag godkänner att mina uppgifter används för matchning inom detta nätverk, i enlighet med GDPR.</label></div>
     <button class="btn btn-primary" onclick="saveProfile()">Spara &amp; gå till nätverket ⚡</button>
@@ -616,6 +619,16 @@ function populateGroupSelect(selectId){
   sel.innerHTML='<option value="">Välj grupp...</option>';
   d.groups.forEach(function(g){sel.innerHTML+='<option value="'+g.id+'">'+g.name+'</option>';});
 }
+function populateTipsadSelect(){
+  var d=db();
+  var sel=document.getElementById('p-tipsad');
+  if(!sel) return;
+  sel.innerHTML='<option value="">Välj medlem...</option>';
+  d.users.filter(function(u){return u.status==="member";}).forEach(function(u){
+    sel.innerHTML+='<option value="'+u.id+'">'+u.name+(u.company?' – '+u.company:'')+'</option>';
+  });
+  sel.innerHTML+='<option value="_other">Övrigt / vet ej</option>';
+}
 function startFlow(status){
   window._status=status;window._editId=null;
   document.getElementById('prof-status-label').textContent=status==='guest'?'Gäst (7 dagar)':'Ny medlem';
@@ -626,6 +639,7 @@ function startFlow(status){
   populateGroupSelect('p-group');
   document.getElementById('p-group').value='';
   document.getElementById('tipsad-row').style.display=status==='guest'?'block':'none';
+  populateTipsadSelect();
   updateProgress();showScreen('s-profile');
 }
 function updateProgress(){
@@ -644,7 +658,7 @@ function saveProfile(){
   if(!document.getElementById('p-gdpr').checked){showToast('Godkänn GDPR för att fortsätta');return;}
   var id=window._editId||uid();
   var ex=window._editId?me():null;
-  var u={id:id,name:name,company:document.getElementById('p-company').value.trim(),city:document.getElementById('p-city').value.trim(),industry:document.getElementById('p-industry').value,groupId:gid,offers:offers,seeks:seeks,focus:document.getElementById('p-focus').value.trim(),email:document.getElementById('p-email').value.trim(),phone:document.getElementById('p-phone').value.trim(),avatar:window._avatarData||( ex?ex.avatar:null),status:window._status||'member',createdAt:ex?ex.createdAt:Date.now(),todaySeeks:ex?ex.todaySeeks:'',match:ex?ex.match:null,matches:ex?ex.matches:null,email:document.getElementById("p-email").value.trim(),phone:document.getElementById("p-phone").value.trim(),feedback:ex?ex.feedback:"",feedbackAt:ex?ex.feedbackAt:null,tipsadAv:document.getElementById('p-tipsad')?document.getElementById('p-tipsad').value.trim():(ex?ex.tipsadAv:'')};
+  var u={id:id,name:name,company:document.getElementById('p-company').value.trim(),city:document.getElementById('p-city').value.trim(),industry:document.getElementById('p-industry').value,groupId:gid,offers:offers,seeks:seeks,focus:document.getElementById('p-focus').value.trim(),email:document.getElementById('p-email').value.trim(),phone:document.getElementById('p-phone').value.trim(),avatar:window._avatarData||( ex?ex.avatar:null),status:window._status||'member',createdAt:ex?ex.createdAt:Date.now(),todaySeeks:ex?ex.todaySeeks:'',match:ex?ex.match:null,matches:ex?ex.matches:null,email:document.getElementById("p-email").value.trim(),phone:document.getElementById("p-phone").value.trim(),feedback:ex?ex.feedback:"",feedbackAt:ex?ex.feedbackAt:null,tipsadAv:(function(){var sel=document.getElementById('p-tipsad');if(!sel||!sel.value)return ex?ex.tipsadAv:'';if(sel.value==='_other')return 'Övrigt';var opt=sel.options[sel.selectedIndex];return opt?opt.text:sel.value;})()};
   saveUser(u);saveSess(id);window._editId=null;
   renderDash();showScreen('s-dash');
   if(meetingStateForGroup(gid).s==='open')setTimeout(function(){fetchMatches(u);},600);
@@ -664,6 +678,8 @@ function goEditProfile(){
   document.getElementById('p-gdpr').checked=true;
   populateGroupSelect('p-group');
   document.getElementById('p-group').value=u.groupId||'';
+  populateTipsadSelect();
+  if(u.tipsadAv){var sel=document.getElementById('p-tipsad');if(sel){var opts=Array.from(sel.options);var match=opts.find(function(o){return o.text===u.tipsadAv;});if(match)sel.value=match.value;}}
   document.getElementById('p-email').value=u.email||''; document.getElementById('p-phone').value=u.phone||'';
   window._avatarData=u.avatar||null;
   var ini2=document.getElementById('prof-avatar-ini');
@@ -707,7 +723,7 @@ function renderMeetingWidget(u){
       '<div class="feedback-gate-sub">Fick du en värdefull kontakt eller ett bra tips? Dela med gruppen – det tar 30 sekunder.</div>'+
       '<textarea class="feedback-input" id="feedback-quick" placeholder="T.ex. Fick kontakt med en ny kund tack vare nätverket..." rows="2"></textarea>'+
       '<div style="display:flex;gap:10px;margin-top:8px;align-items:center;">'+
-        '<button onclick="saveFeedbackQuick()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">Dela →</button>'+
+        '<button onclick="saveFeedbackQuick()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:sans-serif;">Dela →</button>'+
         '<span class="skip-link" onclick="skipFeedback()">Hoppa över</span>'+
       '</div>'+
     '</div>':'';
@@ -848,8 +864,7 @@ function generateDigest(){
   var now=new Date();
   var dateStr=now.getDate()+'/'+(now.getMonth()+1)+' '+now.getFullYear();
   var lines=['📋 '+g.name+' – Nätverksdigest '+dateStr,''];
-  lines.push('Vad söker vi just nu?
-');
+  lines.push('Vad söker vi just nu?');
   users.forEach(function(u){
     lines.push('👤 '+u.name+(u.company?' ('+u.company+')':''));
     lines.push('🔍 Söker: '+(u.todaySeeks||u.seeks));
@@ -859,8 +874,7 @@ function generateDigest(){
   });
   lines.push('─────────────────────');
   lines.push('Känner du någon som kan hjälpa? Hör av dig direkt!');
-  document.getElementById('digest-output').value=lines.join('
-');
+  document.getElementById('digest-output').value=lines.join('\n');
 }
 function copyDigest(){
   var ta=document.getElementById('digest-output');
@@ -1082,7 +1096,7 @@ function renderBoard(){
           '<div class="board-co">'+(x.company||'')+(x.city?' · '+x.city:'')+'</div>'+
           '<div class="board-seek" style="margin-top:4px;">🔍 '+seek+'</div>'+
           (!isMe?'<div style="margin-top:8px;display:flex;align-items:center;gap:8px;">'+
-            '<button class="help-btn'+(hasHelped(u&&u.id,x.id)?' clicked':'')+'" onclick="clickHelp(''+x.id+'')" '+(hasHelped(u&&u.id,x.id)?'disabled':'')+'>'+
+            '<button class="help-btn'+(hasHelped(u&&u.id,x.id)?' clicked':'')+'" onclick="clickHelp(\"'+x.id+'\")" '+(hasHelped(u&&u.id,x.id)?'disabled':'')+'>'+
             (hasHelped(u&&u.id,x.id)?'✓ Vill hjälpa':'Jag kan hjälpa →')+'</button>'+
             (x.helpCount&&x.helpCount>0&&isMe?'<span style="font-size:11.5px;color:var(--gold);font-weight:600;">'+x.helpCount+' vill hjälpa dig – kom till träffen! 🎯</span>':'')+
           '</div>':'')+
@@ -1156,9 +1170,7 @@ function generateDigest(){
   var meetingStr=ms.m?fmtDate(ms.m.date):'senaste träffen';
 
   var lines=[];
-  lines.push('🔍 VAD SÖKER '+( grp?grp.name.toUpperCase():'GRUPPEN')+' JUST NU?');
-  lines.push('Inför träffen '+meetingStr);
-  lines.push('');
+  lines.push('🔍 VAD SÖKER '+( grp?grp.name.toUpperCase():'GRUPPEN')+' JUST NU?');lines.push('Inför träffen '+meetingStr);lines.push('');
 
   var withSeeks=users.filter(function(u){return u.todaySeeks||u.seeks;});
   withSeeks.forEach(function(u){
@@ -1193,8 +1205,7 @@ function generateDigest(){
   lines.push('');
   lines.push('Skapat med Accelia – Nätverksaccelerator för KAN');
 
-  document.getElementById('digest-output').value=lines.join('
-');
+  document.getElementById('digest-output').value=lines.join('\n');
   showToast('Sammanställning klar!');
 }
 
