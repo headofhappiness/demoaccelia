@@ -320,7 +320,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 
 <!-- NÄTVERKET -->
 <div class="screen" id="s-network">
-  <div class="topbar"><div class="topbar-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z" fill="white"/></svg></div><div><div class="topbar-name">Min grupp</div><div class="topbar-tag" id="net-count">–</div></div></div>
+  <div class="topbar"><div class="topbar-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z" fill="white"/></svg></div><div><div class="topbar-name">Gruppen</div><div class="topbar-tag" id="net-count">–</div></div></div>
   <div class="container has-nav" style="padding-top:16px;">
     <input class="search-input" id="net-search" placeholder="🔍  Sök namn, bransch, stad..." oninput="renderNetwork(this.value)">
     <div id="network-list"></div>
@@ -328,27 +328,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   <div class="navbar" id="nav-network-bar"></div>
 </div>
 
-<!-- SÖKER -->
-<div class="screen" id="s-board">
-  <div class="topbar"><div class="topbar-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z" fill="white"/></svg></div><div><div class="topbar-name">Söker</div><div class="topbar-tag" id="board-count">–</div></div></div>
-  <div class="container has-nav" style="padding-top:16px;">
-    <div id="board-status-msg" style="margin-bottom:12px;"></div>
-    <div id="board-list"></div>
-    <div id="feedback-section" style="display:none;margin-top:16px;">
-      <div class="section-title">Efter senaste träffen</div>
-      <div id="feedback-form-box" style="background:linear-gradient(135deg,#EFF6FF,#E8F0FE);border:1.5px solid #BFDBFE;border-radius:var(--r);padding:16px;">
-        <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--navy);margin-bottom:6px;">Fick du en värdefull kontakt? 💬</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:10px;">Dela med gruppen – det inspirerar andra att komma till träffarna.</div>
-        <textarea class="fld" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid #BFDBFE;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;resize:none;min-height:64px;" id="feedback-input" placeholder="T.ex. Fick kontakt med en ny kund tack vare nätverket..."></textarea>
-        <div style="display:flex;gap:10px;margin-top:8px;align-items:center;">
-          <button onclick="saveFeedback()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">Dela →</button>
-          <span style="font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline;" onclick="skipFeedback()">Hoppa över</span>
-        </div>
-      </div>
-      <div id="feedback-sent-msg" style="display:none;font-size:13px;color:var(--green);padding:8px 0;">✓ Tack! Din berättelse har sparats.</div>
-    </div>
-  </div>
-  <div class="navbar" id="nav-board-bar"></div>
+<!-- SÖKER (merged into Gruppen) -->
+<div style="display:none;">
+  <div id="board-count"></div>
+  <div id="board-status-msg"></div>
+  <div id="board-list"></div>
+  <div id="feedback-section"></div>
+  <div id="feedback-form-box"></div>
+  <div id="feedback-sent-msg"></div>
+  <div id="nav-board-bar"></div>
+  <textarea id="feedback-input"></textarea>
 </div>
 
 <!-- MIN PROFIL -->
@@ -513,14 +502,13 @@ function navBtn(tab, active, label, icon){
   return '<button class="'+cl+'" onclick="switchTab(\''+tab+'\')">'+icon+'<span class="nav-label">'+label+'</span></button>';
 }
 var ICON_HOME='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
-var ICON_NET='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>';
-var ICON_BOARD='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>';
+var ICON_GROUP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>';
 var ICON_PROFILE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
 function renderNavbars(active){
-  ['dash','network','board','profile'].forEach(function(tab){
+  ['dash','network','profile'].forEach(function(tab){
     var el=document.getElementById('nav-'+tab+'-bar');
     if(!el)return;
-    el.innerHTML=navBtn('dash',active,'Hem',ICON_HOME)+navBtn('network',active,'Nätverket',ICON_NET)+navBtn('board',active,'Söker',ICON_BOARD)+navBtn('profile',active,'Profil',ICON_PROFILE);
+    el.innerHTML=navBtn('dash',active,'Hem',ICON_HOME)+navBtn('network',active,'Gruppen',ICON_GROUP)+navBtn('profile',active,'Profil',ICON_PROFILE);
   });
 }
 
@@ -534,7 +522,7 @@ function showScreen(id){document.querySelectorAll('.screen').forEach(function(s)
 function switchTab(t){
   if(t==='dash'){renderNavbars('dash');renderDash();showScreen('s-dash');}
   if(t==='network'){renderNavbars('network');renderNetwork('');showScreen('s-network');}
-  if(t==='board'){renderNavbars('board');renderBoard();showScreen('s-board');}
+  if(t==='board'){renderNavbars('network');renderNetwork('');showScreen('s-network');}
   if(t==='profile'){renderNavbars('profile');renderMyProfile();showScreen('s-myprofile');}
 }
 function goToProfile(){var u=me();if(u){switchTab('dash');}else{startFlow('member');}}
@@ -633,7 +621,13 @@ function renderDash(){
   document.getElementById('dash-status-tag').textContent=u.status==='guest'?'🎟️ Gäst':'👤 Medlem';
   var gt=document.getElementById('dash-group-tag');gt.textContent='📍 '+groupName(u.groupId);gt.style.display='inline';
   renderMeetingWidget(u);
-  document.getElementById('offer-card').innerHTML='<div class="section-title">Vad jag erbjuder</div><div style="font-size:14px;line-height:1.6;margin-bottom:10px;">'+u.offers+'</div><div class="section-title">Söker generellt</div><div style="font-size:14px;line-height:1.6;margin-bottom:10px;">'+u.seeks+'</div><button class="btn btn-ghost btn-sm" onclick="goEditProfile()" style="margin-top:2px;">Redigera</button>';
+  var tipsHtml=u.helpCount>0?
+    '<div class="fomo-banner" style="margin-bottom:10px;">💡 '+u.helpCount+' person'+(u.helpCount>1?'er':'')+ ' i gruppen har tips till dig – kom till träffen och ta reda på vem!</div>':'';
+  document.getElementById('offer-card').innerHTML=
+    tipsHtml+
+    '<div class="section-title">Vad jag erbjuder</div><div style="font-size:14px;line-height:1.6;margin-bottom:10px;">'+u.offers+'</div>'+
+    '<div class="section-title">Söker generellt</div><div style="font-size:14px;line-height:1.6;margin-bottom:10px;">'+u.seeks+'</div>'+
+    '<button class="btn btn-ghost btn-sm" onclick="goEditProfile()" style="margin-top:2px;">Redigera</button>';
   var ls=document.getElementById('lottery-section');
   if(u.match){ls.style.display='block';var m=u.match;document.getElementById('lottery-container').innerHTML='<div class="lottery-card"><div class="lottery-label">🎲 Din lottade match</div><div class="lottery-av">'+ini(m.name)+'</div><div class="lottery-name">'+m.name+'</div><div class="lottery-co">'+m.company+(m.city?' · '+m.city:'')+'</div><div class="lottery-why">'+m.why+'</div></div>';}else{ls.style.display='none';}
 }
@@ -717,11 +711,51 @@ function skipFeedback(){var u=me();if(!u)return;u.feedback='_skip_';u.feedbackAt
 /* NETWORK */
 function renderNetwork(filter){
   var d=db();var u=me();var f=(filter||'').toLowerCase();
-  var users=d.users.filter(function(x){if(u&&x.id===u.id)return false;if(u&&x.groupId!==u.groupId)return false;if(!f)return true;return[x.name,x.company,x.city,x.industry,x.offers,x.seeks].some(function(s){return s&&s.toLowerCase().includes(f);});});
-  document.getElementById('net-count').textContent=users.length+' i '+(u?groupName(u.groupId):'gruppen');
+  var ms=u?meetingStateForGroup(u.groupId):{s:'none'};
+  var matchingOpen=ms.s==='open';
+
+  var users=d.users.filter(function(x){
+    if(u&&x.id===u.id)return false;
+    if(u&&x.groupId!==u.groupId)return false;
+    if(!f)return true;
+    return[x.name,x.company,x.city,x.industry,x.offers,x.seeks].some(function(s){return s&&s.toLowerCase().includes(f);});
+  });
+
+  document.getElementById('net-count').textContent=users.length+' '+(u?'i '+groupName(u.groupId):'i gruppen');
   var list=document.getElementById('network-list');
   if(!users.length){list.innerHTML='<div class="empty-state">Inga andra i din grupp ännu.</div>';return;}
-  list.innerHTML=users.map(function(x){var stag=x.status==='guest'?'<span class="tag tag-guest">Gäst</span>':'<span class="tag tag-member">Medlem</span>';return '<div class="user-card"><div class="user-card-top"><div class="user-av">'+ini(x.name)+'</div><div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:var(--navy);">'+x.name+(x.company?' <span style="font-weight:400;color:var(--muted);">· '+x.company+'</span>':'')+'</div><div style="font-size:12px;color:var(--muted);">'+(x.city||'')+(x.industry?' · '+x.industry:'')+'</div></div>'+stag+'</div><div style="font-size:13px;margin-bottom:4px;">📦 '+x.offers+'</div><div style="font-size:12.5px;color:var(--muted);">🔍 <strong>Söker:</strong> '+x.seeks+'</div></div>';}).join('');
+
+  // Banner if matching open
+  var banner=matchingOpen?
+    '<div style="background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;padding:10px 14px;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:12px;">⚡ Matchning öppen – se vad alla söker och klicka "Jag har tips" om du kan hjälpa!</div>':'';
+
+  list.innerHTML=banner+users.map(function(x){
+    var stag=x.status==='guest'?'<span class="tag tag-guest">Gäst</span>':'<span class="tag tag-member">Medlem</span>';
+    var seek=x.todaySeeks||x.seeks;
+    var hasHelped=u&&u.helpedIds&&u.helpedIds.indexOf(x.id)>=0;
+
+    // Tips button - only when matching is open
+    var tipsBtn=matchingOpen?
+      '<div style="margin-top:8px;">'+
+        '<button class="tips-btn'+(hasHelped?' clicked':'')+'" '+(hasHelped?'disabled':'')+' onclick="'+(hasHelped?'':'clickTips(&quot;'+x.id+'&quot;)')+'">'+
+          (hasHelped?'✓ Tips registrerat':'Jag har tips →')+
+        '</button>'+
+      '</div>':'';
+
+    return '<div class="user-card">'+
+      '<div class="user-card-top">'+
+        '<div class="user-av">'+ini(x.name)+'</div>'+
+        '<div style="flex:1;min-width:0;">'+
+          '<div style="font-size:14px;font-weight:600;color:var(--navy);">'+x.name+(x.company?' <span style="font-weight:400;color:var(--muted);">· '+x.company+'</span>':'')+'</div>'+
+          '<div style="font-size:12px;color:var(--muted);">'+(x.city||'')+(x.industry?' · '+x.industry:'')+'</div>'+
+        '</div>'+
+        stag+
+      '</div>'+
+      '<div style="font-size:13px;margin-bottom:4px;">📦 '+x.offers+'</div>'+
+      (seek?'<div style="font-size:12.5px;color:var(--muted);">🔍 <strong>Söker:</strong> '+seek+'</div>':'')+
+      tipsBtn+
+    '</div>';
+  }).join('');
 }
 
 /* MY PROFILE */
