@@ -492,7 +492,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 </div>
 
 <script>
-const DB='accelia_v3',SESS='accelia_sess',ADMIN='admindemo',DAY=86400000;
+const DB='accelia_v4',SESS='accelia_sess',ADMIN='admindemo',DAY=86400000;
 const NETWORK_CODE='KAN2026'; // Byt detta inför varje säsong
 const CODE_KEY='accelia_code_ok';
 
@@ -768,7 +768,7 @@ function renderNetwork(filter){
     var seek=x.todaySeeks||x.seeks;
     var stag=x.status==='guest'?'<span class="tag tag-guest">Gäst</span>':'<span class="tag tag-member">Medlem</span>';
     var hasHelped=u&&u.helpedIds&&u.helpedIds.indexOf(x.id)>=0;
-    var myTipsBanner=isMe&&x.helpCount>0?'<div class="fomo-banner" style="margin-top:8px;">💡 <strong>'+x.helpCount+'</strong> person'+(x.helpCount>1?'er':'')+' har tips till dig vid nästa träff.</div>':'';
+    var myTipsBanner=isMe&&x.helpCount>0?'<button onclick="switchTab(&quot;dash&quot;)" style="margin-top:10px;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;font-family:sans-serif;display:flex;align-items:center;gap:6px;">💡 '+x.helpCount+' person'+(x.helpCount>1?'er':'')+' har tips till dig vid nästa träff →</button>':'';
     var tipsBtn=(!isMe&&matchingOpen)?'<div style="margin-top:8px;"><button class="tips-btn'+(hasHelped?' clicked':'')+'" '+(hasHelped?'disabled':'')+' onclick="'+(hasHelped?'':'clickTips(&quot;'+x.id+'&quot;)')+'">'+( hasHelped?'✓ Tips registrerat':'Jag har tips →')+'</button></div>':'';
     var border=isMe?'border:1.5px solid var(--gold);background:#FFF8E7;':'';
     var meLabel=isMe?'<span style="font-size:10px;font-weight:700;color:var(--gold);margin-left:6px;">DU</span>':'';
