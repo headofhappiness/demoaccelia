@@ -47,6 +47,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .tag-guest{background:#FEF9C3;color:#854D0E;}
 /* LAND */
 #s-land{background:linear-gradient(160deg,var(--navy3) 0%,var(--navy) 60%,#2A5A9A 100%);}
+#s-code{background:linear-gradient(160deg,var(--navy3) 0%,var(--navy) 60%,#2A5A9A 100%);}
+.code-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;}
+.code-logo{width:64px;height:64px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.2);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.code-logo svg{width:38px;height:38px;}
+.code-h{font-family:'DM Serif Display',serif;font-size:26px;color:var(--white);margin-bottom:8px;}
+.code-sub{font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:28px;line-height:1.6;max-width:300px;}
+.code-input-wrap{width:100%;max-width:300px;}
+.code-input{width:100%;padding:14px 18px;border-radius:14px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:var(--white);font-size:20px;font-family:'DM Sans',sans-serif;font-weight:600;text-align:center;outline:none;letter-spacing:0.15em;text-transform:uppercase;}
+.code-input::placeholder{color:rgba(255,255,255,0.3);font-size:14px;letter-spacing:0;}
+.code-input:focus{border-color:var(--gold);background:rgba(255,255,255,0.15);}
+.code-btn{margin-top:12px;width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:var(--rb);padding:14px;font-size:15px;font-family:'DM Serif Display',serif;font-weight:700;cursor:pointer;}
+.code-btn:hover{opacity:0.9;}
+.code-error{margin-top:10px;font-size:13px;color:#FCA5A5;min-height:20px;}
+.code-hint{margin-top:20px;font-size:11px;color:rgba(255,255,255,0.25);}
 .land-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;}
 .land-logo{width:64px;height:64px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.2);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
 .land-logo svg{width:38px;height:38px;}
@@ -199,8 +213,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 <!-- NAVBAR TEMPLATE (rendered via JS) -->
 <!-- NAV: home=Hem, network=Nätverket, board=Söker, profile=Profil -->
 
+<!-- KOD-SKÄRM -->
+<div class="screen" id="s-code">
+  <div class="code-inner">
+    <div class="code-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z" fill="white"/></svg></div>
+    <div class="code-h">Välkommen till Accelia</div>
+    <div class="code-sub">Ange nätverkskoden du fått av din nätverksorganisation.</div>
+    <div class="code-input-wrap">
+      <input class="code-input" id="network-code-input" placeholder="Ange kod" maxlength="20"
+        onkeydown="if(event.key==='Enter')checkNetworkCode()"
+        oninput="this.value=this.value.toUpperCase();document.getElementById('code-error').textContent=''">
+      <button class="code-btn" onclick="checkNetworkCode()">Gå vidare →</button>
+      <div class="code-error" id="code-error"></div>
+    </div>
+    <div class="code-hint">Kontakta din administratör om du saknar koden.</div>
+  </div>
+  <div class="demo-ribbon"><b>Accelia Demo</b> · Grafik och innehåll anpassas i pilotversion</div>
+</div>
+
 <!-- LAND -->
-<div class="screen active" id="s-land">
+<div class="screen" id="s-land">
   <div class="land-inner">
     <div class="land-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z" fill="white"/></svg></div>
     <div class="land-h">Vem bör du prata med<br><em>på nästa träff?</em></div>
@@ -345,6 +377,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 
     <!-- ÖVERSIKT -->
     <div class="admin-section">
+      <div class="admin-section-title">🔑 Nätverkskod</div>
+      <div style="background:var(--cream2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+        <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);letter-spacing:0.15em;">KAN2026</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5;">Delas med medlemmar via mail och vid möten.<br>Byts varje säsong i källkoden (NETWORK_CODE).</div>
+      </div>
+    </div>
+
+    <div class="admin-section">
       <div class="admin-section-title">Översikt – alla grupper</div>
       <div id="admin-stats-grid"></div>
       <div class="stat-row" id="admin-global-stats" style="margin-top:12px;"></div>
@@ -438,6 +478,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 
 <script>
 const DB='accelia_v3',SESS='accelia_sess',ADMIN='admindemo',DAY=86400000;
+const NETWORK_CODE='KAN2026'; // Byt detta inför varje säsong
+const CODE_KEY='accelia_code_ok';
+
+function checkNetworkCode(){
+  var val=document.getElementById('network-code-input').value.trim().toUpperCase();
+  if(val===NETWORK_CODE||val===ADMIN){
+    sessionStorage.setItem(CODE_KEY,'1');
+    // If admin code entered go straight to admin
+    if(val===ADMIN){ loadAdmin(); showScreen('s-admin'); return; }
+    showScreen('s-land');
+  } else {
+    document.getElementById('code-error').textContent='Fel kod – försök igen eller kontakta din administratör.';
+  }
+}
+
+function hasValidCode(){
+  return sessionStorage.getItem(CODE_KEY)==='1';
+}
 function db(){try{return JSON.parse(localStorage.getItem(DB))||{users:[],groups:[],meetings:[],windowDays:5};}catch(e){return{users:[],groups:[],meetings:[],windowDays:5};}}
 function save(d){localStorage.setItem(DB,JSON.stringify(d));}
 function sess(){try{return JSON.parse(sessionStorage.getItem(SESS));}catch(e){return null;}}
@@ -483,6 +541,11 @@ function goToProfile(){var u=me();if(u){switchTab('dash');}else{startFlow('membe
 
 function init(){
   seed();autoCleanGuests();
+  // Check network code first
+  if(!hasValidCode()){
+    showScreen('s-code');
+    return;
+  }
   if(window.location.search.includes('admin='+ADMIN)||window.location.hash.includes('admin')){loadAdmin();showScreen('s-admin');return;}
   if(window.location.search.includes('guest=1')){startFlow('guest');return;}
   var u=me();if(u){switchTab('dash');return;}
