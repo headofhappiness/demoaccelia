@@ -318,6 +318,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
     <div class="dash-tags"><span class="dash-tag" id="dash-status-tag">–</span><span class="dash-tag group" id="dash-group-tag" style="display:none">–</span></div>
   </div>
   <div class="container has-nav">
+    <div id="tips-banner"></div>
     <div id="meeting-widget"></div>
     <div id="matches-section" style="display:none;"><div class="section-title">Prata med dessa på träffen</div><div id="matches-container"></div></div>
     <div id="lottery-section" style="display:none;"><div class="section-title" style="margin-top:16px;">🎲 Min lottade match</div><div id="lottery-container"></div></div>
@@ -650,6 +651,19 @@ function renderDash(){
   document.getElementById('dash-meta').textContent=(u.company||'')+(u.city?' · '+u.city:'');
   document.getElementById('dash-status-tag').textContent=u.status==='guest'?'🎟️ Gäst':'👤 Medlem';
   var gt=document.getElementById('dash-group-tag');gt.textContent='📍 '+groupName(u.groupId);gt.style.display='inline';
+  // Tips banner - prominent on dashboard
+  var tb=document.getElementById('tips-banner');
+  if(tb){
+    if(u.helpCount>0){
+      tb.innerHTML='<div style="background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:var(--r);padding:16px 18px;margin-bottom:12px;">'
+        +'<div style="font-family:DM Serif Display,serif;font-size:18px;color:var(--navy);margin-bottom:4px;">💡 '+u.helpCount+' person'+(u.helpCount>1?'er':'')+' har tips till dig vid nästa träff!</div>'
+        +'<div style="font-size:12.5px;color:rgba(27,52,97,0.7);margin-bottom:10px;">Ta reda på vem – gå till Sökningar och se vad gruppen söker.</div>'
+        +'<button onclick="switchTab(&quot;network&quot;)" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:sans-serif;">Gå till Sökningar →</button>'
+        +'</div>';
+    } else {
+      tb.innerHTML='';
+    }
+  }
   renderMeetingWidget(u);
   var tipsHtml=u.helpCount>0?
     '<div class="fomo-banner" style="margin-bottom:10px;">💡 '+u.helpCount+' person'+(u.helpCount>1?'er':'')+ ' har tips till dig vid nästa träff.</div>':'';
@@ -673,7 +687,7 @@ function renderMeetingWidget(u){
     msec.style.display='block';
     var dLabel=ms.daysUntil===0?'<strong style="color:var(--red);">Idag!</strong>':ms.daysUntil===1?'<strong>Imorgon</strong>':'Om <strong>'+ms.daysUntil+' dagar</strong>';
     var feedHtml=showFeedback?'<div class="feedback-gate"><div class="feedback-gate-title">Hur gick senaste träffen? 💬</div><div class="feedback-gate-sub">Fick du en värdefull kontakt? Det tar 30 sekunder.</div><textarea id="feedback-quick" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid #BFDBFE;font-size:14px;font-family:sans-serif;outline:none;resize:none;min-height:60px;" placeholder="T.ex. Fick kontakt med en ny kund..."></textarea><div style="display:flex;gap:10px;margin-top:8px;align-items:center;"><button onclick="saveFeedbackQuick()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:sans-serif;">Dela →</button><span style="font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline;" onclick="skipFeedback()">Hoppa över</span></div></div>':'';
-    w.innerHTML=feedHtml+'<div class="meeting-open"><div class="meeting-open-label">⚡ Matchning öppen – '+groupName(u.groupId)+'</div><div class="meeting-open-title">'+groupName(u.groupId)+'</div><div class="meeting-open-date">'+fmtDate(ms.m.date)+(ms.m.location?' · '+ms.m.location:'')+' &nbsp;'+dLabel+'</div><div class="meeting-open-q">Vad vill du få ut av träffen?</div><textarea class="meeting-open-input" id="today-input" rows="2" placeholder="T.ex. söker ny leverantör inom bygg, vill träffa någon inom IT...">'+(u.todaySeeks||'')+'</textarea><button class="meeting-open-btn" onclick="updateAndMatch()">Visa vem jag bör prata med →</button></div>';
+    w.innerHTML=feedHtml+'<div class="meeting-open"><div class="meeting-open-label">⚡ Matchning öppen – '+groupName(u.groupId)+'</div><div class="meeting-open-title">'+groupName(u.groupId)+'</div><div class="meeting-open-date">'+fmtDate(ms.m.date)+(ms.m.location?' · '+ms.m.location:'')+' &nbsp;'+dLabel+'</div><div class="meeting-open-q">Vad vill du få ut av träffen?</div><textarea class="meeting-open-input" id="today-input" rows="2" placeholder="T.ex. söker ny leverantör inom bygg, vill träffa någon inom IT...">'+(u.todaySeeks||'')+'</textarea><div style="font-size:11px;color:rgba(27,52,97,0.6);margin-top:6px;">Din sökning syns för alla i gruppen – de kan förbereda sig innan ni ses.</div><button class="meeting-open-btn" onclick="updateAndMatch()">Visa vem jag bör prata med →</button></div>';
     renderMatches(u);
   }else if(ms.s==='locked'){
     msec.style.display='none';
@@ -897,7 +911,7 @@ function copyText(outputId, confirmId){
 
 /* AI MATCHING */
 function scoreMatch(user,other){var q=(user.todaySeeks||user.seeks||'').toLowerCase();var uo=(user.offers||'').toLowerCase();var score=0;(other.offers||'').toLowerCase().split(/\s+/).forEach(function(w){if(w.length>3&&q.includes(w))score+=3;});(other.seeks||'').toLowerCase().split(/\s+/).forEach(function(w){if(w.length>3&&uo.includes(w))score+=2;});if(other.industry&&user.industry&&other.industry!==user.industry)score+=1;return score;}
-function fallbackWhy(user,other){var q=(user.todaySeeks||user.seeks||'').toLowerCase();var of=(other.offers||'').toLowerCase();var words=q.split(/\s+/).filter(function(w){return w.length>3&&of.includes(w);});if(words.length)return other.name.split(' ')[0]+' erbjuder det du söker inom '+words.slice(0,2).join(' och ')+'.';return other.name.split(' ')[0]+' på '+other.company+' kan vara en intressant kontakt.';}
+function fallbackWhy(user,other){var q=(user.todaySeeks||user.seeks||'').toLowerCase();var of=(other.offers||'').toLowerCase();var words=q.split(/\s+/).filter(function(w){return w.length>3&&of.includes(w);});if(words.length)return 'Matchar vad du söker – '+other.name.split(' ')[0]+' erbjuder '+words.slice(0,2).join(' och ')+'.';return 'Kan vara värd att prata med.';}
 function localMatch(user){var d=db();var others=d.users.filter(function(u){return u.id!==user.id&&u.groupId===user.groupId;});return others.map(function(o){return{user:o,score:scoreMatch(user,o)};}).sort(function(a,b){return b.score-a.score;}).slice(0,3).map(function(s){var o=s.user;return{name:o.name,company:o.company,city:o.city||'',offers:o.offers,why:fallbackWhy(user,o)};});}
 async function fetchMatches(user){
   var d=db();var others=d.users.filter(function(u){return u.id!==user.id&&u.groupId===user.groupId;});
@@ -913,7 +927,7 @@ async function fetchMatches(user){
     saveUser(u);hideLoader();renderMatches(u);showToast('Klart!');
   }catch(e){
     var u=me();u.matches=localMatch(user);
-    if(!u.matches.length){u.matches=others.map(function(x){return{name:x.name,company:x.company,city:x.city||'',offers:x.offers,why:'Är med på träffen – kanske en intressant kontakt?'};});}
+    if(!u.matches.length){u.matches=others.map(function(x){return{name:x.name,company:x.company,city:x.city||'',offers:x.offers,why:'Kan vara värd att prata med.'};});}
     saveUser(u);hideLoader();renderMatches(u);showToast('Matchningar klara!');
   }
 }
