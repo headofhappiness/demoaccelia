@@ -178,7 +178,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .launch-btn{background:linear-gradient(135deg,var(--navy3),var(--navy2));color:var(--white);border:none;border-radius:var(--r);padding:16px;font-size:15px;font-family:'DM Serif Display',serif;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px;box-shadow:0 4px 20px rgba(27,52,97,0.2);}
 .launch-btn.running{background:var(--muted);cursor:not-allowed;}
 .group-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;background:rgba(27,52,97,0.1);color:var(--navy);margin-left:4px;}
-.digest-output{width:100%;min-height:160px;padding:12px;border-radius:10px;border:1.5px solid var(--border);font-size:12px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--cream);resize:vertical;line-height:1.75;}
+.sammanstn-output{width:100%;min-height:160px;padding:12px;border-radius:10px;border:1.5px solid var(--border);font-size:12px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--cream);resize:vertical;line-height:1.75;}
 .copy-btn{margin-top:8px;background:var(--gold);color:var(--navy);border:none;border-radius:20px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .copy-confirm{font-size:12px;color:var(--green);margin-top:6px;display:none;}
 /* AI HELPER */
@@ -204,6 +204,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .gdpr-row input{margin-top:3px;accent-color:var(--navy);width:16px;height:16px;flex-shrink:0;}
 .gdpr-row label{font-size:11.5px;color:var(--muted);line-height:1.55;}
 .empty-state{text-align:center;padding:24px 16px;color:var(--muted);font-size:13px;}
+.modal-overlay{position:fixed;inset:0;background:rgba(15,30,58,0.55);backdrop-filter:blur(3px);z-index:2000;display:none;align-items:center;justify-content:center;}
+.modal-overlay.on{display:flex;}
+.modal-box{background:var(--white);border-radius:20px;padding:28px 24px;width:100%;max-width:320px;margin:16px;box-shadow:0 20px 60px rgba(15,30,58,0.25);}
+.modal-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy);margin-bottom:6px;}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:16px;}
+.modal-input{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);font-size:16px;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;text-align:center;letter-spacing:0.1em;background:var(--cream);}
+.modal-input:focus{border-color:var(--navy2);background:#fff;}
+.modal-error{font-size:12px;color:var(--red);margin-top:6px;min-height:18px;text-align:center;}
+.modal-btns{display:flex;gap:8px;margin-top:16px;}
+.modal-btn-cancel{flex:1;padding:11px;border:1px solid var(--border);border-radius:var(--rb);background:var(--cream2);color:var(--muted);cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;}
+.modal-btn-ok{flex:2;padding:11px;border:none;border-radius:var(--rb);background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;cursor:pointer;font-size:14px;font-family:'DM Serif Display',serif;}
 </style>
 </head>
 <body>
@@ -262,6 +273,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   <div class="container" style="padding-top:24px;padding-bottom:32px;">
     <div class="eyebrow">Kom igång</div>
     <div class="h1">Din profil<br><em>på 60 sekunder</em></div>
+    <div style="background:var(--cream2);border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--muted);margin-bottom:16px;line-height:1.55;">✅ Du fyller i detta <strong>en gång</strong>. Inför varje träff uppdaterar du bara vad du söker – det tar under en minut.</div>
     <div class="profile-progress"><div class="profile-progress-bar" id="prof-progress" style="width:20%"></div></div>
     <div class="card">
       <div class="fld-row">
@@ -280,11 +292,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
         <textarea id="p-offers" placeholder="T.ex. redovisning och löner för SMF..." oninput="updateProgress()"></textarea>
         <div id="ai-offers-box" style="display:none" class="ai-helper"><div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;">✨ AI-förslag</div><div class="ai-suggestion" id="ai-offers-txt"></div><button class="ai-use-btn" onclick="useAI('offers')">Använd detta</button></div>
       </div>
-      <div class="fld">
-        <label>Vad söker du generellt? *</label>
-        <textarea id="p-seeks" placeholder="T.ex. marknadsförare att samarbeta med..." oninput="updateProgress()"></textarea>
-        <div id="ai-seeks-box" style="display:none" class="ai-helper"><div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;">✨ AI-förslag</div><div class="ai-suggestion" id="ai-seeks-txt"></div><button class="ai-use-btn" onclick="useAI('seeks')">Använd detta</button></div>
-      </div>
+      <div id="ai-seeks-box" style="display:none"><div id="ai-seeks-txt"></div></div>
+      <input type="hidden" id="p-seeks" value="">
       <div class="fld"><label>Fokus <span class="opt">valfritt</span></label><input id="p-focus" placeholder="T.ex. hållbarhet, digitalisering..."></div>
       <div class="fld-row">
         <div class="fld"><label>E-post <span class="opt">valfritt</span></label><input id="p-email" type="email" placeholder="anna@foretag.se"></div>
@@ -320,7 +329,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 
 <!-- NÄTVERKET -->
 <div class="screen" id="s-network">
-  <div class="topbar"><div class="topbar-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z" fill="white"/></svg></div><div><div class="topbar-name">Gruppen</div><div class="topbar-tag" id="net-count">–</div></div></div>
+  <div class="topbar"><div class="topbar-logo"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11L10 22L20 10H13.5L13 2Z" fill="white"/></svg></div><div><div class="topbar-name">Sökningar</div><div class="topbar-tag" id="net-count">–</div></div></div>
   <div class="container has-nav" style="padding-top:16px;">
     <input class="search-input" id="net-search" placeholder="🔍  Sök namn, bransch, stad..." oninput="renderNetwork(this.value)">
     <div id="network-list"></div>
@@ -416,20 +425,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
       <div class="admin-section-sub">Skicka ca 3–5 dagar före träffen. Uppmanar medlemmarna att uppdatera vad de söker i Accelia.</div>
       <div class="fld" style="margin-bottom:8px;"><select id="reminder-group-select" style="font-size:13px;padding:8px 12px;"></select></div>
       <button onclick="generateReminder()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;">Generera påminnelsemail</button>
-      <textarea class="digest-output" id="reminder-output" readonly placeholder="Välj grupp och klicka Generera..."></textarea>
+      <textarea class="sammanstn-output" id="reminder-output" readonly placeholder="Välj grupp och klicka Generera..."></textarea>
       <button class="copy-btn" onclick="copyText('reminder-output','reminder-confirm')">📋 Kopiera mailtext</button>
       <div class="copy-confirm" id="reminder-confirm">✓ Kopierat! Klistra in i ditt mail.</div>
     </div>
 
     <!-- MAIL EFTER TRÄFFEN -->
     <div class="admin-section">
-      <div class="admin-section-title">📋 EFTER TRÄFFEN – Skicka digest</div>
+      <div class="admin-section-title">📋 EFTER TRÄFFEN – Skicka sammanställning</div>
       <div class="admin-section-sub">Skicka dagen efter träffen. Visar vad alla söker + kontaktuppgifter. Ämne: "Känner du någon som kan hjälpa?"</div>
-      <div class="fld" style="margin-bottom:8px;"><select id="digest-group-select" style="font-size:13px;padding:8px 12px;"></select></div>
-      <button onclick="generateDigest()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;">Generera digest</button>
-      <textarea class="digest-output" id="digest-output" readonly placeholder="Välj grupp och klicka Generera..."></textarea>
-      <button class="copy-btn" onclick="copyText('digest-output','digest-confirm')">📋 Kopiera text</button>
-      <div class="copy-confirm" id="digest-confirm">✓ Kopierat!</div>
+      <div class="fld" style="margin-bottom:8px;"><select id="sammanstn-group-select" style="font-size:13px;padding:8px 12px;"></select></div>
+      <button onclick="generateSammanstallning()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;">Generera sammanställning</button>
+      <textarea class="sammanstn-output" id="sammanstn-output" readonly placeholder="Välj grupp och klicka Generera..."></textarea>
+      <button class="copy-btn" onclick="copyText('sammanstn-output','sammanstn-confirm')">📋 Kopiera text</button>
+      <div class="copy-confirm" id="sammanstn-confirm">✓ Kopierat!</div>
     </div>
 
     <!-- FEEDBACK -->
@@ -461,6 +470,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
       <div class="admin-section-title">⏳ Gästrensning</div>
       <button class="btn btn-ghost" onclick="cleanupGuests()" style="font-size:13px;margin-bottom:6px;">Ta bort gäster äldre än 7 dagar</button>
       <div id="cleanup-status" style="font-size:12px;color:var(--muted);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal-overlay" id="admin-modal">
+  <div class="modal-box">
+    <div class="modal-title">🔐 Admin-inloggning</div>
+    <div class="modal-sub">Ange din admin-kod för att fortsätta.</div>
+    <input class="modal-input" id="admin-code-input" placeholder="Kod" type="password"
+      onkeydown="if(event.key==='Enter')submitAdminCode()"
+      oninput="document.getElementById('admin-code-error').textContent=''">
+    <div class="modal-error" id="admin-code-error"></div>
+    <div class="modal-btns">
+      <button class="modal-btn-cancel" onclick="closeAdminModal()">Avbryt</button>
+      <button class="modal-btn-ok" onclick="submitAdminCode()">Logga in →</button>
     </div>
   </div>
 </div>
@@ -502,13 +527,16 @@ function navBtn(tab, active, label, icon){
   return '<button class="'+cl+'" onclick="switchTab(\''+tab+'\')">'+icon+'<span class="nav-label">'+label+'</span></button>';
 }
 var ICON_HOME='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
-var ICON_GROUP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>';
+var ICON_SEARCH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>';
 var ICON_PROFILE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
 function renderNavbars(active){
   ['dash','network','profile'].forEach(function(tab){
     var el=document.getElementById('nav-'+tab+'-bar');
     if(!el)return;
-    el.innerHTML=navBtn('dash',active,'Hem',ICON_HOME)+navBtn('network',active,'Gruppen',ICON_GROUP)+navBtn('profile',active,'Profil',ICON_PROFILE);
+    var u=me();
+    var tipsBadge=u&&u.helpCount>0?'<span style="position:absolute;top:2px;right:8px;background:var(--gold);color:var(--navy);border-radius:50%;width:16px;height:16px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:sans-serif;">'+u.helpCount+'</span>':'';
+    var networkBtn='<button class="nav-item'+(active==='network'?' active':'')+'" onclick="switchTab(&quot;network&quot;)" style="position:relative;">'+ICON_SEARCH+'<span class="nav-label">Sökningar</span>'+tipsBadge+'</button>';
+    el.innerHTML=navBtn('dash',active,'Hem',ICON_HOME)+networkBtn+navBtn('profile',active,'Profil',ICON_PROFILE);
   });
 }
 
@@ -554,6 +582,8 @@ function seed(){
     {id:uid(),name:'Lars Svensson',company:'GBG Digital',city:'Göteborg',industry:'Teknik & IT',groupId:'g2',offers:'Appar, e-handel och digital strategi',seeks:'Säljpartners och kunder inom fintech',email:'lars@gbgdigital.se',phone:'070-555 66 77',status:'member',createdAt:now-4*DAY,todaySeeks:'',match:null,matches:null,feedback:'',helpedIds:[],helpCount:0,tipsadAv:''},
     {id:uid(),name:'Sara Lindqvist',company:'Lindqvist Juridik',city:'Göteborg',industry:'Finans & juridik',groupId:'g2',offers:'Affärsjuridik och avtalsrätt',seeks:'Revisorer och redovisningskonsulter att remissa med',email:'sara@lindqvistjuridik.se',phone:'070-666 77 88',status:'member',createdAt:now-6*DAY,todaySeeks:'',match:null,matches:null,feedback:'',helpedIds:[],helpCount:0,tipsadAv:''},
     {id:uid(),name:'Per Nilsson',company:'KustMedia',city:'Göteborg',industry:'Kreativt & media',groupId:'g2',offers:'Foto, film och varumärkesstrategi',seeks:'Kunder inom fastighet och handel',email:'per@kustmedia.se',phone:'070-777 88 99',status:'guest',createdAt:now-DAY,todaySeeks:'',match:null,matches:null,feedback:'',helpedIds:[],helpCount:0,tipsadAv:'Anna Karlsson – Digital Nord'}
+  ,
+    {id:uid(),name:'Lisa Jonsson',company:'Head of Happiness AB',city:'Kungsbacka',industry:'Tjänster & konsultation',groupId:'g1',offers:'Hjälper företagare bygga starkare och mer värdeskapande nätverk.',email:'lisa@headofhappiness.se',phone:'070-123 45 67',status:'member',createdAt:now-DAY,todaySeeks:'Söker företag som vill utveckla sina nätverksaktiviteter.',match:null,matches:null,feedback:'',helpedIds:[],helpCount:2,tipsadAv:''}
   ];
   save(d);
 }
@@ -572,7 +602,7 @@ function startFlow(status){
   populateTipsadSelect();
   updateProgress();showScreen('s-profile');
 }
-function updateProgress(){var f=['p-name','p-offers','p-seeks','p-group'].filter(function(i){return document.getElementById(i).value.trim();}).length;document.getElementById('prof-progress').style.width=(10+f/4*85)+'%';}
+function updateProgress(){var f=['p-name','p-offers','p-group'].filter(function(i){return document.getElementById(i).value.trim();}).length;document.getElementById('prof-progress').style.width=(10+f/3*85)+'%';}
 function saveProfile(){
   var name=document.getElementById('p-name').value.trim();
   var offers=document.getElementById('p-offers').value.trim();
@@ -581,13 +611,13 @@ function saveProfile(){
   if(!name){showToast('Fyll i ditt namn');return;}
   if(!gid){showToast('Välj vilken grupp du tillhör');return;}
   if(!offers){showToast('Berätta vad du erbjuder');return;}
-  if(!seeks){showToast('Berätta vad du söker');return;}
+
   if(!document.getElementById('p-gdpr').checked){showToast('Godkänn GDPR för att fortsätta');return;}
   var id=window._editId||uid();
   var ex=window._editId?me():null;
   var tsel=document.getElementById('p-tipsad');
   var tipsadAv=tsel&&tsel.value?(tsel.value==='_other'?'Övrigt':(tsel.options[tsel.selectedIndex]?tsel.options[tsel.selectedIndex].text:'')):(ex?ex.tipsadAv:'');
-  var u={id:id,name:name,company:document.getElementById('p-company').value.trim(),city:document.getElementById('p-city').value.trim(),industry:document.getElementById('p-industry').value,groupId:gid,offers:offers,seeks:seeks,focus:document.getElementById('p-focus').value.trim(),email:document.getElementById('p-email').value.trim(),phone:document.getElementById('p-phone').value.trim(),tipsadAv:tipsadAv,status:window._status||'member',createdAt:ex?ex.createdAt:Date.now(),todaySeeks:ex?ex.todaySeeks:'',match:ex?ex.match:null,matches:ex?ex.matches:null,feedback:ex?ex.feedback:'',feedbackAt:ex?ex.feedbackAt:null,helpedIds:ex?ex.helpedIds:[],helpCount:ex?ex.helpCount:0};
+  var u={id:id,name:name,company:document.getElementById('p-company').value.trim(),city:document.getElementById('p-city').value.trim(),industry:document.getElementById('p-industry').value,groupId:gid,offers:offers,seeks:'',focus:document.getElementById('p-focus').value.trim(),email:document.getElementById('p-email').value.trim(),phone:document.getElementById('p-phone').value.trim(),tipsadAv:tipsadAv,status:window._status||'member',createdAt:ex?ex.createdAt:Date.now(),todaySeeks:ex?ex.todaySeeks:'',match:ex?ex.match:null,matches:ex?ex.matches:null,feedback:ex?ex.feedback:'',feedbackAt:ex?ex.feedbackAt:null,helpedIds:ex?ex.helpedIds:[],helpCount:ex?ex.helpCount:0};
   saveUser(u);saveSess(id);window._editId=null;
   switchTab('dash');
   if(meetingStateForGroup(gid).s==='open')setTimeout(function(){fetchMatches(u);},600);
@@ -622,11 +652,10 @@ function renderDash(){
   var gt=document.getElementById('dash-group-tag');gt.textContent='📍 '+groupName(u.groupId);gt.style.display='inline';
   renderMeetingWidget(u);
   var tipsHtml=u.helpCount>0?
-    '<div class="fomo-banner" style="margin-bottom:10px;">💡 '+u.helpCount+' person'+(u.helpCount>1?'er':'')+ ' i gruppen har tips till dig – kom till träffen och ta reda på vem!</div>':'';
+    '<div class="fomo-banner" style="margin-bottom:10px;">💡 '+u.helpCount+' person'+(u.helpCount>1?'er':'')+ ' har tips till dig vid nästa träff.</div>':'';
   document.getElementById('offer-card').innerHTML=
     tipsHtml+
     '<div class="section-title">Vad jag erbjuder</div><div style="font-size:14px;line-height:1.6;margin-bottom:10px;">'+u.offers+'</div>'+
-    '<div class="section-title">Söker generellt</div><div style="font-size:14px;line-height:1.6;margin-bottom:10px;">'+u.seeks+'</div>'+
     '<button class="btn btn-ghost btn-sm" onclick="goEditProfile()" style="margin-top:2px;">Redigera</button>';
   var ls=document.getElementById('lottery-section');
   if(u.match){ls.style.display='block';var m=u.match;document.getElementById('lottery-container').innerHTML='<div class="lottery-card"><div class="lottery-label">🎲 Din lottade match</div><div class="lottery-av">'+ini(m.name)+'</div><div class="lottery-name">'+m.name+'</div><div class="lottery-co">'+m.company+(m.city?' · '+m.city:'')+'</div><div class="lottery-why">'+m.why+'</div></div>';}else{ls.style.display='none';}
@@ -644,7 +673,7 @@ function renderMeetingWidget(u){
     msec.style.display='block';
     var dLabel=ms.daysUntil===0?'<strong style="color:var(--red);">Idag!</strong>':ms.daysUntil===1?'<strong>Imorgon</strong>':'Om <strong>'+ms.daysUntil+' dagar</strong>';
     var feedHtml=showFeedback?'<div class="feedback-gate"><div class="feedback-gate-title">Hur gick senaste träffen? 💬</div><div class="feedback-gate-sub">Fick du en värdefull kontakt? Det tar 30 sekunder.</div><textarea id="feedback-quick" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid #BFDBFE;font-size:14px;font-family:sans-serif;outline:none;resize:none;min-height:60px;" placeholder="T.ex. Fick kontakt med en ny kund..."></textarea><div style="display:flex;gap:10px;margin-top:8px;align-items:center;"><button onclick="saveFeedbackQuick()" style="background:var(--navy);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:sans-serif;">Dela →</button><span style="font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline;" onclick="skipFeedback()">Hoppa över</span></div></div>':'';
-    w.innerHTML=feedHtml+'<div class="meeting-open"><div class="meeting-open-label">⚡ Matchning öppen – '+groupName(u.groupId)+'</div><div class="meeting-open-title">'+groupName(u.groupId)+'</div><div class="meeting-open-date">'+fmtDate(ms.m.date)+(ms.m.location?' · '+ms.m.location:'')+' &nbsp;'+dLabel+'</div><div class="meeting-open-q">Vad vill du få ut av träffen?</div><textarea class="meeting-open-input" id="today-input" rows="2" placeholder="T.ex. söker ny leverantör, vill träffa någon inom IT...">'+(u.todaySeeks||'')+'</textarea><button class="meeting-open-btn" onclick="updateAndMatch()">Visa vem jag bör prata med →</button></div>';
+    w.innerHTML=feedHtml+'<div class="meeting-open"><div class="meeting-open-label">⚡ Matchning öppen – '+groupName(u.groupId)+'</div><div class="meeting-open-title">'+groupName(u.groupId)+'</div><div class="meeting-open-date">'+fmtDate(ms.m.date)+(ms.m.location?' · '+ms.m.location:'')+' &nbsp;'+dLabel+'</div><div class="meeting-open-q">Vad vill du få ut av träffen?</div><textarea class="meeting-open-input" id="today-input" rows="2" placeholder="T.ex. söker ny leverantör inom bygg, vill träffa någon inom IT...">'+(u.todaySeeks||'')+'</textarea><button class="meeting-open-btn" onclick="updateAndMatch()">Visa vem jag bör prata med →</button></div>';
     renderMatches(u);
   }else if(ms.s==='locked'){
     msec.style.display='none';
@@ -682,7 +711,7 @@ function renderBoard(){
       var isMe=x.id===u.id;
       var hasHelped=u.helpedIds&&u.helpedIds.indexOf(x.id)>=0;
       var tipsBtn=!isMe?'<div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><button class="tips-btn'+(hasHelped?' clicked':'')+(hasHelped?' disabled="true"':'')+'" onclick="'+(hasHelped?'':'clickTips(\''+x.id+'\')')+'">'+( hasHelped?'✓ Tips registrerat':'Jag har tips →')+'</button>'+(x.helpCount>0&&isMe?'<span style="font-size:11.5px;color:var(--gold);font-weight:600;">'+x.helpCount+' har tips till dig!</span>':'')+'</div>':'';
-      var fomoBanner=x.helpCount>0&&isMe?'<div class="fomo-banner">💡 '+x.helpCount+' person'+(x.helpCount>1?'er':'')+ ' i gruppen har tips till dig – kom till träffen och ta reda på vem!</div>':'';
+      var fomoBanner=x.helpCount>0&&isMe?'<div class="fomo-banner">💡 '+x.helpCount+' person'+(x.helpCount>1?'er':'')+ ' har tips till dig vid nästa träff.</div>':'';
       return '<div class="board-card'+(isMe?' style="border-color:var(--gold);background:#FFF8E7;"':'')+'"><div class="board-av" style="'+(isMe?'background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);':'')+'">'+ini(x.name)+'</div><div style="flex:1;min-width:0;"><div class="board-name">'+x.name+(isMe?' <span style="font-size:10px;color:var(--gold);font-weight:600;">Du</span>':'')+'</div><div class="board-co">'+(x.company||'')+(x.city?' · '+x.city:'')+'</div><div class="board-seek">🔍 '+seek+'</div>'+tipsBtn+fomoBanner+'</div></div>';
     }).join('')||'<div class="empty-state">Inga sökningar inlagda ännu.</div>';
     // Feedback section
@@ -713,57 +742,55 @@ function renderNetwork(filter){
   var d=db();var u=me();var f=(filter||'').toLowerCase();
   var ms=u?meetingStateForGroup(u.groupId):{s:'none'};
   var matchingOpen=ms.s==='open';
-
-  var users=d.users.filter(function(x){
+  var others=d.users.filter(function(x){
     if(u&&x.id===u.id)return false;
     if(u&&x.groupId!==u.groupId)return false;
     if(!f)return true;
-    return[x.name,x.company,x.city,x.industry,x.offers,x.seeks].some(function(s){return s&&s.toLowerCase().includes(f);});
+    return[x.name,x.company,x.city,x.industry,x.offers,x.todaySeeks].some(function(s){return s&&s.toLowerCase().includes(f);});
   });
-
-  document.getElementById('net-count').textContent=users.length+' '+(u?'i '+groupName(u.groupId):'i gruppen');
+  document.getElementById('net-count').textContent=(others.length+(u?1:0))+' '+(u?'i '+groupName(u.groupId):'i gruppen');
   var list=document.getElementById('network-list');
-  if(!users.length){list.innerHTML='<div class="empty-state">Inga andra i din grupp ännu.</div>';return;}
-
-  // Banner if matching open
-  var banner=matchingOpen?
-    '<div style="background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;padding:10px 14px;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:12px;">⚡ Matchning öppen – se vad alla söker och klicka "Jag har tips" om du kan hjälpa!</div>':'';
-
-  list.innerHTML=banner+users.map(function(x){
-    var stag=x.status==='guest'?'<span class="tag tag-guest">Gäst</span>':'<span class="tag tag-member">Medlem</span>';
+  function makeCard(x,isMe){
     var seek=x.todaySeeks||x.seeks;
+    var stag=x.status==='guest'?'<span class="tag tag-guest">Gäst</span>':'<span class="tag tag-member">Medlem</span>';
     var hasHelped=u&&u.helpedIds&&u.helpedIds.indexOf(x.id)>=0;
-
-    // Tips button - only when matching is open
-    var tipsBtn=matchingOpen?
-      '<div style="margin-top:8px;">'+
-        '<button class="tips-btn'+(hasHelped?' clicked':'')+'" '+(hasHelped?'disabled':'')+' onclick="'+(hasHelped?'':'clickTips(&quot;'+x.id+'&quot;)')+'">'+
-          (hasHelped?'✓ Tips registrerat':'Jag har tips →')+
-        '</button>'+
-      '</div>':'';
-
-    return '<div class="user-card">'+
-      '<div class="user-card-top">'+
-        '<div class="user-av">'+ini(x.name)+'</div>'+
-        '<div style="flex:1;min-width:0;">'+
-          '<div style="font-size:14px;font-weight:600;color:var(--navy);">'+x.name+(x.company?' <span style="font-weight:400;color:var(--muted);">· '+x.company+'</span>':'')+'</div>'+
-          '<div style="font-size:12px;color:var(--muted);">'+(x.city||'')+(x.industry?' · '+x.industry:'')+'</div>'+
-        '</div>'+
-        stag+
-      '</div>'+
-      '<div style="font-size:13px;margin-bottom:4px;">📦 '+x.offers+'</div>'+
-      (seek?'<div style="font-size:12.5px;color:var(--muted);">🔍 <strong>Söker:</strong> '+seek+'</div>':'')+
-      tipsBtn+
-    '</div>';
-  }).join('');
+    var myTipsBanner=isMe&&x.helpCount>0?'<div class="fomo-banner" style="margin-top:8px;">💡 <strong>'+x.helpCount+'</strong> person'+(x.helpCount>1?'er':'')+' har tips till dig vid nästa träff.</div>':'';
+    var tipsBtn=(!isMe&&matchingOpen)?'<div style="margin-top:8px;"><button class="tips-btn'+(hasHelped?' clicked':'')+'" '+(hasHelped?'disabled':'')+' onclick="'+(hasHelped?'':'clickTips(&quot;'+x.id+'&quot;)')+'">'+( hasHelped?'✓ Tips registrerat':'Jag har tips →')+'</button></div>':'';
+    var border=isMe?'border:1.5px solid var(--gold);background:#FFF8E7;':'';
+    var meLabel=isMe?'<span style="font-size:10px;font-weight:700;color:var(--gold);margin-left:6px;">DU</span>':'';
+    return '<div class="user-card" style="'+border+'"><div class="user-card-top"><div class="user-av" style="'+(isMe?'background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);':'')+'">'+ ini(x.name)+'</div><div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:var(--navy);">'+x.name+meLabel+(x.company?' <span style="font-weight:400;color:var(--muted);">· '+x.company+'</span>':'')+'</div><div style="font-size:12px;color:var(--muted);">'+(x.city||'')+(x.industry?' · '+x.industry:'')+'</div></div>'+(isMe?'':stag)+'</div><div style="font-size:13px;margin-bottom:4px;">📦 '+x.offers+'</div>'+(seek?'<div style="font-size:12.5px;font-weight:500;color:var(--navy);margin-bottom:4px;">🔍 '+seek+'</div>':(isMe?'<div style="font-size:12px;color:var(--muted);font-style:italic;">Uppdatera vad du söker inför träffen →</div>':''))+myTipsBanner+tipsBtn+'</div>';
+  }
+  var banner=matchingOpen?'<div style="background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;padding:10px 14px;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:12px;">⚡ Matchning öppen – klicka Jag har tips om du kan hjälpa någon!</div>':'';
+  var myCard=u?makeCard(u,true):'';
+  var otherCards=others.length?others.map(function(x){return makeCard(x,false);}).join(''):'<div class="empty-state">Inga andra i din grupp ännu.</div>';
+  list.innerHTML=banner+myCard+otherCards;
 }
+
 
 /* MY PROFILE */
 function renderMyProfile(){var u=me();if(!u)return;var stag=u.status==='guest'?'<span class="tag tag-guest">🎟️ Gäst</span>':'<span class="tag tag-member">👤 Medlem</span>';document.getElementById('myprofile-card').innerHTML='<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;"><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;">'+u.name[0]+'</div><div><div style="font-size:17px;font-weight:600;color:var(--navy);">'+u.name+'</div><div style="font-size:12px;color:var(--muted);">'+(u.company||'')+(u.city?' · '+u.city:'')+'</div></div></div>'+stag+' <span class="tag" style="background:rgba(232,160,32,0.15);color:var(--gold);">📍 '+groupName(u.groupId)+'</span>'+(u.industry?' <span class="tag" style="background:var(--cream2);color:var(--muted);">'+u.industry+'</span>':'')+'<div style="margin-top:14px;"><div class="section-title">Erbjuder</div><div style="font-size:14px;line-height:1.6;">'+u.offers+'</div></div><div style="margin-top:10px;"><div class="section-title">Söker generellt</div><div style="font-size:14px;line-height:1.6;">'+u.seeks+'</div></div>'+(u.focus?'<div style="margin-top:10px;"><div class="section-title">Fokus</div><div style="font-size:14px;">'+u.focus+'</div></div>':'')+(u.email||u.phone?'<div style="margin-top:10px;padding:10px 12px;background:var(--cream2);border-radius:10px;"><div class="section-title" style="margin-bottom:4px;">Kontakt</div>'+(u.email?'<div style="font-size:13px;color:var(--navy);">✉️ '+u.email+'</div>':'')+(u.phone?'<div style="font-size:13px;color:var(--navy);margin-top:3px;">📞 '+u.phone+'</div>':'')+'</div>':'');}
 function logout(){clearSess();showScreen('s-land');}
 
 /* ADMIN */
-function checkAdmin(){var c=prompt('Admin-kod:');if(c===ADMIN){loadAdmin();showScreen('s-admin');}}
+function checkAdmin(){
+  document.getElementById('admin-code-input').value='';
+  document.getElementById('admin-code-error').textContent='';
+  document.getElementById('admin-modal').classList.add('on');
+  setTimeout(function(){document.getElementById('admin-code-input').focus();},100);
+}
+function closeAdminModal(){
+  document.getElementById('admin-modal').classList.remove('on');
+}
+function submitAdminCode(){
+  var val=document.getElementById('admin-code-input').value.trim();
+  if(val===ADMIN){
+    closeAdminModal();
+    loadAdmin();showScreen('s-admin');
+  } else {
+    document.getElementById('admin-code-error').textContent='Fel kod – försök igen.';
+    document.getElementById('admin-code-input').select();
+  }
+}
 function loadAdmin(){
   var d=db();
   var statsHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px;">';
@@ -787,7 +814,7 @@ function loadAdmin(){
 }
 function populateAllSelects(){
   var d=db();
-  ['m-group-id','digest-group-select','reminder-group-select','lottery-group-select'].forEach(function(id){
+  ['m-group-id','sammanstn-group-select','reminder-group-select','lottery-group-select'].forEach(function(id){
     var sel=document.getElementById(id);if(!sel)return;
     sel.innerHTML='<option value="">Välj grupp...</option>';
     d.groups.forEach(function(g){sel.innerHTML+='<option value="'+g.id+'">'+g.name+'</option>';});
@@ -850,8 +877,8 @@ function generateReminder(){
   var lines=['Hej alla i '+grpName+'!','','Nästa träff är '+fmtDate(ms.m.date)+(loc?' hos '+loc:'.')+'.','','Inför träffen – uppdatera din profil i Accelia. Det tar under en minut:','','👉 Svara på: Vad vill du få ut av den här träffen?','','Accelia visar dig sedan vem i gruppen du bör söka upp – så att du','kommer dit med en tydlig plan istället för att mingla på måfå.','','Öppna appen här: [KLISTRA IN DIN LÄNK TILL ACCELIA]','','Ses på träffen!','','// '+grpName];
   document.getElementById('reminder-output').value=lines.join('\n');showToast('Påminnelsemail klart!');
 }
-function generateDigest(){
-  var gid=document.getElementById('digest-group-select').value;if(!gid){showToast('Välj grupp');return;}
+function generateSammanstallning(){
+  var gid=document.getElementById('sammanstn-group-select').value;if(!gid){showToast('Välj grupp');return;}
   var d=db();var grp=d.groups.find(function(g){return g.id===gid;});var ms=meetingStateForGroup(gid);
   var grpName=grp?grp.name:'Gruppen';
   var users=d.users.filter(function(u){return u.groupId===gid;});
@@ -861,7 +888,7 @@ function generateDigest(){
   var feedbacks=users.filter(function(u){return u.feedback&&u.feedback!=='_skip_';});
   if(feedbacks.length){lines.push('──────────────────────────────');lines.push('');lines.push('💬 VÄRDEFULLA KONTAKTER FRÅN SENASTE TRÄFFEN:');lines.push('');feedbacks.forEach(function(u){lines.push(u.name+': "'+u.feedback+'"');lines.push('');});lines.push('──────────────────────────────');lines.push('');}
   lines.push('// '+grpName+' via Accelia');
-  document.getElementById('digest-output').value=lines.join('\n');showToast('Digest klar!');
+  document.getElementById('sammanstn-output').value=lines.join('\n');showToast('Sammanställning klar!');
 }
 function copyText(outputId, confirmId){
   var ta=document.getElementById(outputId);if(!ta||!ta.value){showToast('Generera text först');return;}
@@ -918,7 +945,7 @@ async function runLottery(){
 var aiS={};
 function localImprove(text,type){var t=text.trim();t=t.replace(/^jag\s+/i,'');t=t.charAt(0).toUpperCase()+t.slice(1);if(!/[.!?]$/.test(t))t+='.';return t;}
 async function improveWithAI(){
-  var of=document.getElementById('p-offers').value.trim();var se=document.getElementById('p-seeks').value.trim();
+  var of=document.getElementById('p-offers').value.trim();var se='';
   if(!of&&!se){showToast('Fyll i något först');return;}
   showLoader('Förbättrar med AI...');
   var p='Förbättra dessa nätverkstexter, max 2 meningar vardera, tydliga och säljande på svenska:\n'+(of?'ERBJUDER: "'+of+'"\n':'')+(se?'SÖKER: "'+se+'"\n':'')+'\nSvara BARA med JSON: {"offers":"...","seeks":"..."}';
